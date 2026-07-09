@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Saheli | Women's Wellness</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#fff8fb;
+    color:#333;
+}
+
+
+/* Header */
+
+header{
+    width:100%;
+    padding:20px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:white;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+
+.logo img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+
+.logo h1{
+    color:#d94f8a;
+    font-size:28px;
+}
+
+
+.profile{
+    font-size:25px;
+}
+
+
+
+/* Hero Section */
+
+.hero{
+
+    padding:70px 10%;
+    text-align:center;
+
+    animation:fadeIn 1s ease;
+}
+
+
+.hero h2{
+
+    font-size:42px;
+    color:#c43d78;
+    margin-bottom:15px;
+
+}
+
+
+.hero p{
+
+    font-size:18px;
+    color:#666;
+    max-width:650px;
+    margin:auto;
+
+}
+
+
+
+/* Dashboard */
+
+.container{
+
+    padding:30px 8% 70px;
+
+}
+
+
+.grid{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+
+}
+
+
+/* Cards */
+
+
+.card{
+
+    padding:35px;
+    border-radius:25px;
+    background:white;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+    transition:0.4s;
+
+    animation:slideUp 0.8s ease;
+
+}
+
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.15);
+
+}
+
+
+.icon{
+
+    font-size:40px;
+    margin-bottom:20px;
+
+}
+
+
+.card h3{
+
+    font-size:23px;
+    margin-bottom:10px;
+    color:#b83f72;
+
+}
+
+
+.card p{
+
+    color:#666;
+    line-height:1.6;
+    margin-bottom:20px;
+
+}
+
+
+button{
+
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+
+    background:#d94f8a;
+    color:white;
+
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+
+button:hover{
+
+    background:#b7356d;
+
+}
+
+
+
+/* Different Card Colors */
+
+
+.mental{
+    border-top:6px solid #b59cff;
+}
+
+
+.fitness{
+    border-top:6px solid #7ed957;
+}
+
+
+.period{
+    border-top:6px solid #ff8fb1;
+}
+
+
+.nutrition{
+    border-top:6px solid #ffb870;
+}
+
+
+.creative{
+    border-top:6px solid #9d6cff;
+}
+
+
+.ai{
+
+    border-top:6px solid #d94f8a;
+
+    animation:pulse 2s infinite;
+
+}
+
+
+/* Footer */
+
+footer{
+
+    text-align:center;
+    padding:30px;
+    color:#777;
+
+}
+
+
+
+/* Animations */
+
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+
+@keyframes slideUp{
+
+from{
+opacity:0;
+transform:translateY(50px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+
+@keyframes pulse{
+
+0%{
+box-shadow:0 0 0 rgba(217,79,138,0);
+}
+
+50%{
+box-shadow:0 0 25px rgba(217,79,138,.4);
+}
+
+100%{
+box-shadow:0 0 0 rgba(217,79,138,0);
+}
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:900px){
+
+header{
+
+padding:20px;
+
+}
+
+
+.hero h2{
+
+font-size:30px;
+
+}
+
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.container{
+
+padding:20px;
+
+}
+
+
+}
+.card-link{
+    text-decoration:none;
+    color:inherit;
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+
+<img src="C:\Users\USER\Desktop\she hackathon\l.jpeg">
+
+<h1>Saheli</h1>
+
+</div>
+
+
+<div class="profile">
+
+👤
+
+</div>
+
+</header>
+
+
+
+
+<section class="hero">
+
+<h2>
+A place where every woman is united
+</h2>
+
+
+<p>
+Your personal wellness companion for mental health,
+fitness, nutrition, creativity and women's health.
+</p>
+
+
+</section>
+
+
+
+
+<section class="container">
+
+
+<div class="grid">
+
+<div class="card mental">
+
+<div class="icon">🧠</div>
+
+<h3>Mental Awareness</h3>
+
+<p>
+Manage emotions, reduce stress and build confidence
+with emotional wellness support.
+</p>
+<a href="mentalaware.html" class="card-link">
+
+<button>
+Explore
+</button></a>
+
+</div>
+
+
+
+
+<div class="card fitness">
+
+<div class="icon">🏃‍♀️</div>
+
+<h3>Fitness</h3>
+
+<p>
+Personal workouts and healthy lifestyle guidance
+for every woman.
+</p>
+<a href="C:\Users\USER\Desktop\she hackathon\fitness.html" class="card-link">
+
+<button>
+Explore
+</button></a>
+
+</div>
+
+
+
+
+
+<div class="card period">
+
+<div class="icon">🌸</div>
+
+<h3>Period Awareness</h3>
+
+<p>
+Understand your cycle and improve your women's health.
+</p>
+<a href="C:\Users\USER\Desktop\she hackathon\nxt\period.html" class="card-link">
+
+<button>
+Explore
+</button></a>
+
+</div>
+
+<div class="card nutrition">
+
+<div class="icon">🥗</div>
+
+<h3>Cooking & Nutrition</h3>
+
+<p>
+Healthy recipes and personalized nutrition ideas
+for your lifestyle.
+</p>
+<a href="C:\Users\USER\Desktop\she hackathon\nxt\COOK.HTML">
+
+<button>
+Explore
+</button></a>
+
+</div>
+<div class="card creative">
+
+<div class="icon">🎨</div>
+
+<h3>Creative Space</h3>
+
+<p>
+Share creativity, hobbies and connect with
+a supportive community.
+</p>
+
+<button>
+Explore
+</button>
+
+</div>
+<div class="card ai">
+
+<div class="icon">🤖</div>
+
+<h3>Saheli AI Assistant</h3>
+
+<p>
+Your smart wellness companion available anytime
+for guidance and support.
+</p>
+
+<button>
+Chat Now
+</button>
+
+</div>
+</div>
+
+
+</section>
+<footer>
+
+Together we grow. Together we thrive. 💗
+
+</footer>
+
+
+</body>
+
+</html>
