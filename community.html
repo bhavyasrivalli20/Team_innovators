@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saheli Anonymous Community</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#fff5f8;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#e91e63;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin:15px 0;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+textarea{
+    width:100%;
+    min-height:100px;
+    padding:10px;
+}
+
+button{
+    background:#e91e63;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.reply-box{
+    width:100%;
+    margin-top:10px;
+}
+
+.reply{
+    background:#f7f7f7;
+    padding:10px;
+    border-radius:6px;
+    margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌸 Saheli Anonymous Community</h1>
+
+<div class="card">
+<h3>Ask Anonymously</h3>
+
+<textarea id="question"
+placeholder="Ask your question anonymously..."></textarea>
+
+<br><br>
+
+<button onclick="postQuestion()">
+Post Question
+</button>
+</div>
+
+<div id="community"></div>
+
+</div>
+
+<script>
+
+let posts =
+JSON.parse(localStorage.getItem("saheli_posts")) || [];
+
+function savePosts(){
+localStorage.setItem(
+"saheli_posts",
+JSON.stringify(posts)
+);
+}
+
+function postQuestion(){
+
+const question =
+document.getElementById("question").value;
+
+if(question.trim()===""){
+alert("Enter a question");
+return;
+}
+
+posts.unshift({
+question:question,
+replies:[]
+});
+
+savePosts();
+
+document.getElementById("question").value="";
+
+renderPosts();
+}
+
+function addReply(index){
+
+const input =
+document.getElementById("reply-"+index);
+
+const text = input.value;
+
+if(text.trim()==="") return;
+
+posts[index].replies.push(text);
+
+savePosts();
+
+renderPosts();
+}
+
+function renderPosts(){
+
+let html="";
+
+posts.forEach((post,index)=>{
+
+html += `
+<div class="card">
+
+<h3>Anonymous Question</h3>
+
+<p>${post.question}</p>
+
+<h4>Replies</h4>
+
+${post.replies.map(reply => `
+<div class="reply">
+${reply}
+</div>
+`).join("")}
+
+<input
+class="reply-box"
+id="reply-${index}"
+placeholder="Write a reply">
+
+<br><br>
+
+<button onclick="addReply(${index})">
+Reply
+</button>
+
+</div>
+`;
+});
+
+document.getElementById("community").innerHTML =
+html;
+}
+
+renderPosts();
+
+</script>
+
+</body>
+</html>
