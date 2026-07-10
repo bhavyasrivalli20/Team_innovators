@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Space for Women's Wellness</title>
+  <meta name="description" content="A premium single-page experience celebrating creativity, wellness, and women’s health." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    :root {
+      --lavender: #c7b8e6;
+      --peach: #f6c8a9;
+      --blush: #f4b6c2;
+      --mint: #bfe3d2;
+      --cream: #fff9f2;
+      --ink: #3f3356;
+      --shadow: 0 20px 50px rgba(63, 51, 86, 0.16);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #fffdf9 0%, #fdf3ee 40%, #f4f0ff 100%);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; }
+    img { max-width: 100%; }
+
+    .navbar {
+      background: rgba(255, 249, 242, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(63, 51, 86, 0.85), rgba(63, 51, 86, 0.4)), url("https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1400&q=80") center/cover;
+      color: white;
+      padding-top: 90px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: #f8ebff;
+      max-width: 720px;
+    }
+
+    .btn-pill {
+      border-radius: 999px;
+      padding: 0.8rem 1.25rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .btn-pill:hover {
+      transform: translateY(-3px);
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 1.25rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-intro {
+      max-width: 760px;
+      color: #6e6880;
+      margin-bottom: 2rem;
+    }
+
+    .benefit-card, .story-card, .gallery-item, .quiz-card, .tracker-card, .game-card {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .benefit-card:hover, .story-card:hover, .gallery-item:hover, .quiz-card:hover, .tracker-card:hover, .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(63,51,86,0.16);
+    }
+
+    .icon-bubble {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      margin-bottom: 0.9rem;
+      background: linear-gradient(135deg, var(--lavender), var(--blush));
+    }
+
+    .bubble-mint { background: linear-gradient(135deg, var(--mint), #92d3c4); }
+    .bubble-peach { background: linear-gradient(135deg, var(--peach), #f2a974); }
+
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 1rem;
+    }
+
+    .video-wrap iframe,
+    .video-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 1.1rem;
+      border-left: 3px solid var(--lavender);
+    }
+
+    .timeline-item::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      background: var(--blush);
+      border-radius: 50%;
+      position: absolute;
+      left: -8.5px;
+      top: 6px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.7);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      height: 220px;
+      object-fit: cover;
+      border-radius: 1rem;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(17,24,39,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1rem;
+    }
+
+    .lightbox.show { display: flex; }
+
+    .lightbox img {
+      max-width: min(90vw, 900px);
+      max-height: 85vh;
+      border-radius: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .memory-card {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, var(--lavender), var(--blush));
+      color: white;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .memory-card.flipped, .memory-card.correct {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, var(--mint), #7ec8ae);
+    }
+
+    .memory-card .front, .memory-card .back {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      backface-visibility: hidden;
+    }
+
+    .memory-card .back { transform: rotateY(180deg); }
+
+    .memory-card .front { font-size: 1.6rem; }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 20px;
+      top: -20px;
+      animation: fall 1.8s linear forwards;
+      z-index: 3000;
+      border-radius: 2px;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: none;
+      z-index: 1800;
+      border-radius: 999px;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(135deg, var(--lavender), var(--blush));
+      color: white;
+      border: none;
+    }
+
+    .swiper { padding-bottom: 2rem; }
+    .swiper-slide img { height: 280px; object-fit: cover; border-radius: 1rem; }
+
+    .quote-box {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .tracker-pill {
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      background: #fdf4ee;
+      color: var(--ink);
+      display: inline-block;
+      margin: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding-top: 120px; text-align: center; }
+      .hero .btn-group { justify-content: center; }
+      .memory-card { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#hero">Creative Space</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#benefits">Benefits</a></li>
+          <li class="nav-item"><a class="nav-link" href="#crafts">Crafts</a></li>
+          <li class="nav-item"><a class="nav-link" href="#routine">Routine</a></li>
+          <li class="nav-item"><a class="nav-link" href="#science">Science</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="#game">Game</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-8" data-aos="fade-right">
+          <p class="text-uppercase mb-3 fw-semibold" style="letter-spacing:0.25em; color:#fbe4ff;">Women's Wellness & Creative Living</p>
+          <h1>Creative Space for Women's Wellness</h1>
+          <p class="lead my-4">Discover how crochet, painting, and mindful making can nurture your body, calm your mind, and spark lasting confidence.</p>
+          <div class="btn-group gap-3 flex-wrap">
+            <a href="#crafts" class="btn btn-light btn-pill">Explore Creativity</a>
+            <a href="#quiz" class="btn btn-outline-light btn-pill">Start Learning</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="py-5" id="benefits">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">Why Creativity Matters for Health</h2>
+          <p class="section-intro mx-auto">Creative practices help women feel grounded, expressive, and energized. They support a lifestyle that honors both inner calm and outward vitality.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-4 benefit-card h-100">
+              <div class="icon-bubble"><i class="fa-solid fa-heart-pulse"></i></div>
+              <h4>Mental Health Benefits</h4>
+              <p>Creative focus reduces stress, softens anxiety, helps with depression management, and invites emotional expression into daily life.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-4 benefit-card h-100">
+              <div class="icon-bubble bubble-mint"><i class="fa-solid fa-brain"></i></div>
+              <h4>Brain Health Benefits</h4>
+              <p>Regular crafting strengthens memory, improves concentration, sharpens problem-solving skills, and supports cognitive flexibility.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="glass-card p-4 benefit-card h-100">
+              <div class="icon-bubble bubble-peach"><i class="fa-solid fa-hand-holding-heart"></i></div>
+              <h4>Physical Wellness</h4>
+              <p>Gentle, repetitive creative movement lowers stress hormones, improves sleep, supports relaxed breathing, and promotes coordination.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="crafts">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">Crafts that Calm, Strengthen, and Inspire</h2>
+          <p class="section-intro mx-auto">Each creative practice offers a unique blend of wellness, focus, and confidence-building. Here are three beautiful pathways to explore.</p>
+        </div>
+
+        <div class="row g-5 mt-2">
+          <div class="col-lg-12">
+            <div class="glass-card p-4 p-lg-5" data-aos="fade-up">
+              <div class="row g-4 align-items-center">
+                <div class="col-lg-7">
+                  <h3 class="mb-3">Crochet for Beginners</h3>
+                  <p>Crochet is more than a hobby; it is a soothing ritual that combines rhythm, repetition, and mindfulness. The steady motion of the hook can lower stress and create a sense of calm, while each completed row reinforces patience, confidence, and focus. Many women find that crochet becomes a gentle practice of self-care that fits beautifully into busy days.</p>
+                  <p>Science shows that repetitive handcrafts can reduce cortisol, promote relaxation, and gently activate the brain’s reward pathways. As you practice, your mind shifts from worry to present-moment attention, improving emotional balance and mental clarity.</p>
+                  <div class="row g-3 mt-2">
+                    <div class="col-sm-6"><div class="stat-box"><strong>What is it?</strong><br/>A relaxing textile craft using a hook and yarn.</div></div>
+                    <div class="col-sm-6"><div class="stat-box"><strong>Why it helps</strong><br/>Encourages calm focus and emotional grounding.</div></div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <img src="https://tse2.mm.bing.net/th/id/OIP.PJ9h3qybks569sT37BqQVAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Woman crocheting with soft yarn" loading="lazy" class="rounded-4 w-100" style="height: 320px; object-fit: cover;" />
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-6">
+                  <h5>Materials Required</h5>
+                  <ul>
+                    <li>Crochet hook (size 4mm or 5mm)</li>
+                    <li>Medium-weight yarn</li>
+                    <li>Scissors</li>
+                    <li>Yarn needle</li>
+                  </ul>
+                  <h5 class="mt-3">Beginner Project Ideas</h5>
+                  <ul>
+                    <li>Simple scarf</li>
+                    <li>Dishcloth</li>
+                    <li>Small granny square</li>
+                    <li>Headband</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h5>Step-by-Step Guide</h5>
+                  <ol>
+                    <li>Hold the yarn comfortably and create a slip knot.</li>
+                    <li>Insert the hook, wrap the yarn, and pull through.</li>
+                    <li>Practice chain stitches until your motions feel relaxed.</li>
+                    <li>Begin a simple row and repeat steadily.</li>
+                    <li>Finish with a neat edge and trim the yarn.</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-12">
+                  <div class="video-wrap">
+                    <video controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80">
+                      <source src="c.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="glass-card p-4 p-lg-5 mt-4" data-aos="fade-up">
+              <div class="row g-4 align-items-center">
+                <div class="col-lg-5">
+                  <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=80" alt="Woman painting with watercolors" loading="lazy" class="rounded-4 w-100" style="height: 320px; object-fit: cover;" />
+                </div>
+                <div class="col-lg-7">
+                  <h3 class="mb-3">Painting for Wellness</h3>
+                  <p>Painting allows emotions to move from the heart to the page. The freedom of color, texture, and brushstroke creates an emotional outlet that supports self-expression and stress relief. It is especially helpful for women who want to release pressure without needing perfect results.</p>
+                  <p>Art therapy research shows that painting can calm the nervous system, increase emotional awareness, and encourage confidence. When color becomes a language, it becomes easier to process feelings and enjoy gentle creative play.</p>
+                  <div class="row g-3 mt-2">
+                    <div class="col-sm-6"><div class="stat-box"><strong>Benefits</strong><br/>Improves emotional wellness and self-confidence.</div></div>
+                    <div class="col-sm-6"><div class="stat-box"><strong>Best for</strong><br/>Quiet reflection, mindfulness, and joyful self-expression.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-6">
+                  <h5>Beginner Materials</h5>
+                  <ul>
+                    <li>Acrylics or watercolors</li>
+                    <li>Brushes of different sizes</li>
+                    <li>Canvas or watercolor paper</li>
+                    <li>Palette and water cup</li>
+                  </ul>
+                  <h5 class="mt-3">Relaxation Exercises</h5>
+                  <ul>
+                    <li>Paint only warm colors for 10 minutes</li>
+                    <li>Create a color mood board</li>
+                    <li>Paint your favorite place mindfully</li>
+                    <li>Try abstract shapes without judgment</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h5>Beginner Guide</h5>
+                  <ol>
+                    <li>Set out your tools and choose one color palette.</li>
+                    <li>Start with broad brushstrokes and simple shapes.</li>
+                    <li>Allow yourself to experiment without needing perfection.</li>
+                    <li>Pause to notice how your mood changes while painting.</li>
+                    <li>Finish with a short reflection on the experience.</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-12">
+                  <div class="video-wrap">
+                    <video controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=80">
+                      <source src="p.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="glass-card p-4 p-lg-5 mt-4" data-aos="fade-up">
+              <div class="row g-4 align-items-center">
+                <div class="col-lg-7">
+                  <h3 class="mb-3">Thread Bangles Making</h3>
+                  <p>Thread bangles are colorful, tactile, and rooted in tradition while feeling wonderfully modern. As you wrap and weave threads, your hands engage in mindful motion that nurtures focus, patience, and fine motor coordination. This form of crafting brings elegance and joy into everyday wellness.</p>
+                  <p>It also creates a beautiful bridge between culture and creativity. Whether you enjoy bold color palettes or soft pastels, thread bangles can be a therapeutic way to build confidence and create something meaningful with your own hands.</p>
+                  <div class="row g-3 mt-2">
+                    <div class="col-sm-6"><div class="stat-box"><strong>Fine motor growth</strong><br/>Supports coordination and dexterity.</div></div>
+                    <div class="col-sm-6"><div class="stat-box"><strong>Mindfulness</strong><br/>Encourages calm, repeated attention.</div></div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <img src="https://i.pinimg.com/originals/a3/62/f7/a362f764a9918e6258608d391f0016e8.jpg" alt="Colorful thread bangle craft" loading="lazy" class="rounded-4 w-100" style="height: 320px; object-fit: cover;" />
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-6">
+                  <h5>Materials Required</h5>
+                  <ul>
+                    <li>Colorful embroidery thread</li>
+                    <li>Elastic or soft thread base</li>
+                    <li>Scissors</li>
+                    <li>Glue or knotting aid</li>
+                  </ul>
+                  <h5 class="mt-3">Beginner Project Ideas</h5>
+                  <ul>
+                    <li>Single-color simple bangle</li>
+                    <li>Two-tone braided design</li>
+                    <li>Floral thread wrap</li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <h5>Preparation Process</h5>
+                  <ol>
+                    <li>Measure the thread and prepare your base.</li>
+                    <li>Secure the starting knot firmly.</li>
+                    <li>Wrap and weave in a steady rhythm.</li>
+                    <li>Finish with a neat knot and trim ends.</li>
+                    <li>Admire your handmade piece and repeat.</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="row g-4 mt-3">
+                <div class="col-lg-12">
+                  <div class="video-wrap">
+                    <video controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80">
+                      <source src="b.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="routine">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">A Daily Creative Routine</h2>
+          <p class="section-intro mx-auto">Small, consistent moments of making can transform your well-being over time.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-4 h-100">
+              <h4>Morning</h4>
+              <p class="text-muted">15 minutes of crochet to gently wake the mind and ease into the day.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-4 h-100">
+              <h4>Afternoon</h4>
+              <p class="text-muted">Creative journaling to process thoughts and fuel emotional clarity.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="glass-card p-4 h-100">
+              <h4>Evening</h4>
+              <p class="text-muted">Painting practice to release tension and enjoy calm, sensory flow.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="glass-card p-4 h-100">
+              <h4>Night</h4>
+              <p class="text-muted">Relaxation crafting to soften the nervous system before sleep.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="science">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">The Science of Creativity</h2>
+          <p class="section-intro mx-auto">Thoughtful making activates the brain in ways that support resilience, focus, and emotional balance.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="glass-card p-4 h-100">
+              <h4>Dopamine Release</h4>
+              <p>Completing a small creative task can trigger rewarding brain chemistry and a joyful sense of achievement.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="glass-card p-4 h-100">
+              <h4>Stress Reduction</h4>
+              <p>Repetitive craft motion helps the body return to a calmer rhythm and lowers everyday tension.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="glass-card p-4 h-100">
+              <h4>Neuroplasticity</h4>
+              <p>Learning new patterns and techniques strengthens the brain’s adaptability and learning capacity.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="glass-card p-4 h-100">
+              <h4>Emotional Regulation</h4>
+              <p>Art and craft provide a safe outlet for feelings and support more balanced emotional responses.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="400">
+            <div class="glass-card p-4 h-100">
+              <h4>Mindfulness Activation</h4>
+              <p>Creative focus anchors attention in the present, creating a gentle and grounding mindful state.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="500">
+            <div class="glass-card p-4 h-100">
+              <h4>Sharper Thinking</h4>
+              <p>Planning colors, patterns, and textures helps improve concentration and creative problem-solving.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">Success Stories</h2>
+          <p class="section-intro mx-auto">Women are discovering that creative rituals can transform their routines, relationships, and self-image.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-md-6 col-lg-4" data-aos="fade-up">
+            <div class="glass-card p-4 story-card h-100">
+              <h4>Rina, 34</h4>
+              <p>“Crochet gave me a calm evening ritual that lowered my stress and helped me sleep better.”</p>
+              <small class="text-muted">Before: anxious evenings • After: peaceful routines</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-4 story-card h-100">
+              <h4>Maya, 41</h4>
+              <p>“Painting became my emotional reset button and helped me feel more confident in myself.”</p>
+              <small class="text-muted">Before: overwhelmed • After: expressive and grounded</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-4 story-card h-100">
+              <h4>Leena, 29</h4>
+              <p>“Thread bangle making brought me joy, mindfulness, and a beautiful new creative hobby.”</p>
+              <small class="text-muted">Before: scattered focus • After: inspired and present</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">Community Gallery</h2>
+          <p class="section-intro mx-auto">A colorful glimpse into the joyful world of handmade wellness.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-sm-6 col-lg-3 gallery-item" data-aos="zoom-in">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.PJ9h3qybks569sT37BqQVAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Crochet projects" loading="lazy" data-large="https://tse2.mm.bing.net/th/id/OIP.PJ9h3qybks569sT37BqQVAHaFj?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" />
+          </div>
+          <div class="col-sm-6 col-lg-3 gallery-item" data-aos="zoom-in" data-aos-delay="100">
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80" alt="Painting session" loading="lazy" data-large="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1400&q=80" />
+          </div>
+          <div class="col-sm-6 col-lg-3 gallery-item" data-aos="zoom-in" data-aos-delay="200">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" alt="Thread bangle crafting" loading="lazy" data-large="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1400&q=80" />
+          </div>
+          <div class="col-sm-6 col-lg-3 gallery-item" data-aos="zoom-in" data-aos-delay="300">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80" alt="Creative crafting moments" loading="lazy" data-large="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="quiz">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="glass-card p-4 p-lg-5 quiz-card">
+              <h2 class="section-title">Wellness Quiz</h2>
+              <p>Find the creative hobby that fits your mood and your lifestyle.</p>
+              <form id="quizForm">
+                <div class="mb-3">
+                  <label class="form-label">1. What helps you unwind best?</label>
+                  <select class="form-select" id="q1">
+                    <option value="crochet">Gentle repetitive motion</option>
+                    <option value="painting">Expressive color play</option>
+                    <option value="bangles">Hands-on crafting with texture</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">2. Which energy feels right today?</label>
+                  <select class="form-select" id="q2">
+                    <option value="calm">Calm and cozy</option>
+                    <option value="creative">Creative and expressive</option>
+                    <option value="focused">Focused and tactile</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-pill btn-outline-dark">Discover My Match</button>
+              </form>
+              <div id="quizResult" class="mt-4"></div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="glass-card p-4 p-lg-5">
+              <h3>Why this quiz matters</h3>
+              <p>Matching your energy to a creative hobby helps you build sustainable habits that support mood, focus, and joy.</p>
+              <ul>
+                <li>Boosts motivation</li>
+                <li>Encourages self-kindness</li>
+                <li>Helps you discover micro-routines</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="game">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <h2 class="section-title">Brain-Sharpening Memory Game</h2>
+          <p class="section-intro mx-auto">Train your memory, concentration, and focus with a beautifully designed matching challenge.</p>
+        </div>
+        <div class="row g-4 mt-2 align-items-center">
+          <div class="col-lg-7" data-aos="fade-right">
+            <div class="glass-card p-4 game-card">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <div>
+                  <strong>Level:</strong> <span id="levelLabel">Easy</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-dark" data-level="easy">Easy</button>
+                  <button class="btn btn-sm btn-outline-dark" data-level="medium">Medium</button>
+                  <button class="btn btn-sm btn-outline-dark" data-level="hard">Hard</button>
+                </div>
+              </div>
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <div><strong>Time:</strong> <span id="timer">00:00</span></div>
+                <div><strong>Score:</strong> <span id="score">0</span></div>
+                <button class="btn btn-sm btn-dark" id="restartGame">Restart</button>
+              </div>
+              <div id="memoryBoard" class="row g-3"></div>
+            </div>
+          </div>
+          <div class="col-lg-5" data-aos="fade-left">
+            <div class="glass-card p-4">
+              <h3>Why this game helps</h3>
+              <p>Matching games are a playful way to strengthen memory, sharpen concentration, and boost cognitive function in a stress-free environment.</p>
+              <ul>
+                <li>Improves memory recall</li>
+                <li>Builds attention span</li>
+                <li>Supports fast decision-making</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="glass-card p-4 p-lg-5 tracker-card">
+              <h2 class="section-title">Wellness Tracker</h2>
+              <p>Track your creative streaks and celebrate your consistency.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <button class="btn btn-pill btn-outline-dark" data-activity="crochet">Mark Crochet</button>
+                <button class="btn btn-pill btn-outline-dark" data-activity="painting">Mark Painting</button>
+                <button class="btn btn-pill btn-outline-dark" data-activity="crafting">Mark Crafting</button>
+              </div>
+              <div id="trackerSummary" class="mb-3"></div>
+              <div id="trackerList"></div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="glass-card p-4 p-lg-5">
+              <h3>Small steps create lasting wellness</h3>
+              <p>Even a few mindful minutes each day can build a beautiful rhythm of calm, creativity, and gratitude.</p>
+              <div class="swiper mt-3">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" alt="wellness craft" loading="lazy" /></div>
+                  <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=80" alt="painting wellness" loading="lazy" /></div>
+                  <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="thread bangle art" loading="lazy" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="glass-card p-4 p-lg-5 text-center" data-aos="fade-up">
+          <h2 class="section-title">Motivational Quotes</h2>
+          <p class="quote-box" id="quoteBox">“Creativity is the quiet courage of the soul.”</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-5 border-top">
+    <div class="container text-center">
+      <h4 class="mb-3">A peaceful place to grow, create, and heal</h4>
+      <p class="text-muted">Follow your creativity and let it become part of your wellness journey.</p>
+      <div class="d-flex justify-content-center gap-3 fs-4 mb-3">
+        <a href="#" class="text-dark"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="text-dark"><i class="fa-brands fa-pinterest"></i></a>
+        <a href="#" class="text-dark"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <small class="text-muted">© 2026 Creative Space for Women's Wellness</small>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <span class="close-lightbox" id="closeLightbox">&times;</span>
+    <img id="lightboxImage" alt="Expanded gallery view" />
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+
+    const swiper = new Swiper('.swiper', { loop: true, autoplay: { delay: 2600 }, slidesPerView: 1 });
+
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => backToTop.style.display = window.scrollY > 400 ? 'block' : 'none');
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const quoteBox = document.getElementById('quoteBox');
+    const quotes = [
+      '“Creativity is the quiet courage of the soul.”',
+      '“A calm mind creates beautiful things.”',
+      '“Your wellness is a work of art.”',
+      '“Women grow stronger when they create.”'
+    ];
+    let quoteIndex = 0;
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteBox.textContent = quotes[quoteIndex];
+    }, 4000);
+
+    document.querySelectorAll('.gallery-item img').forEach((img) => {
+      img.addEventListener('click', () => {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        lightboxImage.src = img.dataset.large || img.src;
+        lightbox.classList.add('show');
+      });
+    });
+
+    document.getElementById('closeLightbox').addEventListener('click', () => {
+      document.getElementById('lightbox').classList.remove('show');
+    });
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') e.target.classList.remove('show');
+    });
+
+    const quizForm = document.getElementById('quizForm');
+    const quizResult = document.getElementById('quizResult');
+    quizForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q1 = document.getElementById('q1').value;
+      const q2 = document.getElementById('q2').value;
+      let hobby = 'Crochet';
+      let message = 'A gentle crochet routine could bring calm and comfort into your day.';
+      if (q1 === 'painting' || q2 === 'creative') {
+        hobby = 'Painting';
+        message = 'Painting is a beautiful way to turn emotions into color and confidence.';
+      } else if (q1 === 'bangles' || q2 === 'focused') {
+        hobby = 'Thread Bangles';
+        message = 'Thread bangles offer tactile joy and mindful focus for your hands and heart.';
+      }
+      quizResult.innerHTML = `<div class="alert alert-light border-0" role="status"><strong>Your match:</strong> ${hobby}. ${message}</div>`;
+    });
+
+    const levelButtons = document.querySelectorAll('[data-level]');
+    const memoryBoard = document.getElementById('memoryBoard');
+    const timerEl = document.getElementById('timer');
+    const scoreEl = document.getElementById('score');
+    const levelLabel = document.getElementById('levelLabel');
+    const restartGame = document.getElementById('restartGame');
+
+    const levels = {
+      easy: { size: 4, symbols: ['🧶', '🎨', '🪡', '🌸'] },
+      medium: { size: 6, symbols: ['🧶', '🎨', '🪡', '🌸', '💛', '🧘'] },
+      hard: { size: 8, symbols: ['🧶', '🎨', '🪡', '🌸', '💛', '🧘', '✨', '🌼'] }
+    };
+
+    let cards = [];
+    let flipped = [];
+    let matched = 0;
+    let score = 0;
+    let timer = 0;
+    let timerId;
+    let currentLevel = 'easy';
+
+    function playTone(frequency, duration) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.value = frequency;
+      gainNode.gain.value = 0.05;
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      oscillator.start();
+      setTimeout(() => {
+        oscillator.stop();
+        ctx.close();
+      }, duration);
+    }
+
+    function startTimer() {
+      clearInterval(timerId);
+      timer = 0;
+      timerEl.textContent = '00:00';
+      timerId = setInterval(() => {
+        timer += 1;
+        const mins = String(Math.floor(timer / 60)).padStart(2, '0');
+        const secs = String(timer % 60).padStart(2, '0');
+        timerEl.textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function spawnConfetti() {
+      for (let i = 0; i < 80; i += 1) {
+        const particle = document.createElement('div');
+        particle.className = 'confetti';
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.background = ['#f6c8a9', '#c7b8e6', '#bfe3d2', '#f4b6c2'][Math.floor(Math.random() * 4)];
+        particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 2000);
+      }
+    }
+
+    function buildGame(level = currentLevel) {
+      currentLevel = level;
+      levelLabel.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+      const config = levels[level];
+      const symbols = [...config.symbols, ...config.symbols].sort(() => Math.random() - 0.5).slice(0, config.size);
+      cards = symbols.map((symbol, index) => ({ id: index, symbol }));
+      memoryBoard.innerHTML = '';
+      cards.forEach((card, index) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'col-3 memory-card';
+        cardEl.dataset.index = index;
+        cardEl.innerHTML = `<div class="front">?</div><div class="back">${card.symbol}</div>`;
+        cardEl.querySelector('.front').addEventListener('click', () => flipCard(index));
+        memoryBoard.appendChild(cardEl);
+      });
+      matched = 0;
+      score = 0;
+      scoreEl.textContent = '0';
+      startTimer();
+    }
+
+    function flipCard(index) {
+      const card = cards[index];
+      const cardEl = memoryBoard.children[index];
+      if (cardEl.classList.contains('flipped') || cardEl.classList.contains('correct')) return;
+      cardEl.classList.add('flipped');
+      flipped.push(index);
+      playTone(540 + flipped.length * 70, 140);
+      if (flipped.length === 2) {
+        const [firstIndex, secondIndex] = flipped;
+        const firstCard = cards[firstIndex];
+        const secondCard = cards[secondIndex];
+        if (firstCard.symbol === secondCard.symbol) {
+          setTimeout(() => {
+            memoryBoard.children[firstIndex].classList.add('correct');
+            memoryBoard.children[secondIndex].classList.add('correct');
+            matched += 1;
+            score += 100;
+            scoreEl.textContent = score;
+            playTone(760, 180);
+            flipped = [];
+            if (matched === cards.length / 2) {
+              clearInterval(timerId);
+              spawnConfetti();
+              setTimeout(() => alert('You completed the game! Your brain just got a lovely workout.'));
+            }
+          }, 350);
+        } else {
+          setTimeout(() => {
+            memoryBoard.children[firstIndex].classList.remove('flipped');
+            memoryBoard.children[secondIndex].classList.remove('flipped');
+            playTone(220, 140);
+            flipped = [];
+          }, 800);
+        }
+      }
+    }
+
+    levelButtons.forEach((button) => button.addEventListener('click', () => buildGame(button.dataset.level)));
+    restartGame.addEventListener('click', () => buildGame(currentLevel));
+    buildGame('easy');
+
+    const trackerKey = 'creativeWellnessTracker';
+    const trackerSummary = document.getElementById('trackerSummary');
+    const trackerList = document.getElementById('trackerList');
+
+    function loadTracker() {
+      return JSON.parse(localStorage.getItem(trackerKey) || '[]');
+    }
+
+    function saveTracker(entries) {
+      localStorage.setItem(trackerKey, JSON.stringify(entries));
+    }
+
+    function updateTracker(activity) {
+      const entries = loadTracker();
+      entries.push({ activity, date: new Date().toISOString().slice(0, 10) });
+      saveTracker(entries);
+      renderTracker();
+    }
+
+    function renderTracker() {
+      const entries = loadTracker();
+      const counts = entries.reduce((acc, entry) => {
+        acc[entry.activity] = (acc[entry.activity] || 0) + 1;
+        return acc;
+      }, {});
+      const streak = new Set(entries.map((entry) => entry.date)).size;
+      trackerSummary.innerHTML = `
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tracker-pill">Crochet: ${counts.crochet || 0}</span>
+          <span class="tracker-pill">Painting: ${counts.painting || 0}</span>
+          <span class="tracker-pill">Crafting: ${counts.crafting || 0}</span>
+          <span class="tracker-pill">Streak Days: ${streak}</span>
+        </div>`;
+      trackerList.innerHTML = entries.slice(-8).reverse().map((entry) => `<div class="border rounded p-2 mt-2">${entry.date} — ${entry.activity}</div>`).join('');
+    }
+
+    document.querySelectorAll('[data-activity]').forEach((button) => {
+      button.addEventListener('click', () => updateTracker(button.dataset.activity));
+    });
+
+    renderTracker();
+  </script>
+</body>
+</html>
