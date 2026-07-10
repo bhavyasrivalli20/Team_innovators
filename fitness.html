@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Saheli - Fitness Awareness</title>
+    <!-- Premium Fonts for a Sleek, Modern Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-pink: #FFF0F2;
+            --bg-card: #FFFFFF;
+            --pink-accent: #FFD2D9;
+            --pink-medium: #F3A3B0;
+            --pink-brand: #DE6B7E;
+            --pink-dark: #662B34;
+            --text-dark: #331A1D;
+            --text-muted: #6E5659;
+            --shadow: 0 15px 35px rgba(222, 107, 126, 0.12);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-pink);
+            color: var(--text-dark);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Bar Styling */
+        header {
+            background-color: rgba(255, 240, 242, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--pink-accent);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--pink-brand);
+            letter-spacing: -0.5px;
+        }
+
+        /* Hero Header Section */
+        .hero {
+            padding: 80px 0 50px 0;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-info {
+            flex: 1.2;
+        }
+
+        .hero-info span {
+            color: var(--pink-brand);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .hero-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            line-height: 1.15;
+            color: var(--pink-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-info p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+
+        .hero-visual {
+            flex: 0.8;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        /* Main Section Title Formatting */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            color: var(--pink-dark);
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .block-section {
+            padding: 70px 0;
+        }
+
+        /* Weight Loss Cards Grid Layout */
+        .weightloss-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .exercise-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 210, 217, 0.4);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pink-medium);
+        }
+
+        .exercise-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--pink-dark);
+            margin-bottom: 15px;
+        }
+
+        .example-badge {
+            display: inline-block;
+            background-color: var(--bg-pink);
+            color: var(--pink-brand);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .card-block-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--pink-brand);
+            letter-spacing: 0.5px;
+            margin-top: 15px;
+            margin-bottom: 4px;
+        }
+
+        .exercise-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        /* Interactive Hula Hooping Layout */
+        .hoop-showcase {
+            display: flex;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 210, 217, 0.5);
+            margin-top: 40px;
+        }
+
+        .hoop-media {
+            flex: 1;
+            background-color: #FFF6F7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .hoop-media img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+        }
+
+        .hoop-content {
+            flex: 1.3;
+            padding: 50px;
+        }
+
+        .hoop-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--pink-dark);
+            margin-bottom: 10px;
+        }
+
+        .hoop-tagline {
+            font-style: italic;
+            color: var(--pink-brand);
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+
+        .hooking-guide {
+            list-style: none;
+        }
+
+        .hooking-guide li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 16px;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+        }
+
+        .hooking-guide li strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .hooking-guide li::before {
+            content: "✦";
+            position: absolute;
+            left: 5px;
+            color: var(--pink-brand);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Page Footer */
+        footer {
+            background-color: var(--pink-dark);
+            color: var(--pink-accent);
+            text-align: center;
+            padding: 50px 24px;
+            margin-top: 80px;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive Breakdowns */
+        @media (max-width: 992px) {
+            .hero, .hoop-showcase {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .hero-info h1 {
+                font-size: 2.8rem;
+            }
+            .hoop-media {
+                width: 100%;
+            }
+            .hoop-content {
+                padding: 35px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-text"> APKI SAHELI </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Section Frame -->
+        <section class="hero">
+            <div class="hero-info">
+                <span>Empowering Women Through Movement</span>
+                <h1>Fitness Awareness</h1>
+                <p>Welcome to Saheli Fitness. True wellness isn't about restrictive trends—it is about understanding physical functional mobility, increasing systemic metabolic output, and introducing cardiovascular variance safely into your daily schedule.</p>
+            </div>
+            <div class="hero-visual">
+                <!-- Verified live active asset on pink environment -->
+                <img src="https://img.magnific.com/premium-photo/yoga-happy-woman-portrait-with-mat-studio-healthy-body-exercise-fitness-pink-background-sports-model-smile-pilates-training-workout-strong-power-energy-self-care_590464-218856.jpg?semt=ais_hybrid&w=740&q=80" alt="Saheli Fitness Lifestyle Mat Base">
+            </div>
+        </section>
+
+        <!-- Block 1: Weight Loss Exercises Box -->
+        <section id="weightloss" class="block-section">
+            <div class="section-heading">
+                <h2>Weight Loss Exercises</h2>
+                <p>High-efficiency movement routines designed to optimize caloric expenditure, stabilize blood sugar baselines, and elevate metabolic capacity.</p>
+            </div>
+
+            <div class="weightloss-grid">
+                <!-- Exercise 1 -->
+                <div class="exercise-card">
+                    <h3>High-Intensity Interval Training (HIIT)</h3>
+                    <div class="example-badge">Real-Time Example: 20-Min Tabata Circuit</div>
+                    
+                    <div class="card-block-title">How to Perform</div>
+                    <p>Perform 20 seconds of maximum effort bodyweight squats or jumping jacks, immediately followed by exactly 10 seconds of complete rest. Repeat across 8 continuous cycles.</p>
+                    
+                    <div class="card-block-title">Systemic Benefits</div>
+                    <p>Triggers Excess Post-Exercise Oxygen Consumption (EPOC), causing your cellular layers to burn fat for fuel up to 24 hours after completion.</p>
+                </div>
+
+                <!-- Exercise 2 -->
+                <div class="exercise-card">
+                    <h3>Functional Resistance Training</h3>
+                    <div class="example-badge">Real-Time Example: Progressive Dumbbell/Band Work</div>
+                    
+                    <div class="card-block-title">How to Perform</div>
+                    <p>Incorporate multi-joint moves like Romanian Deadlifts, push-ups, or weighted lunges for 3 sets of 12 controlled, steady repetitions.</p>
+                    
+                    <div class="card-block-title">Systemic Benefits</div>
+                    <p>Preserves and builds lean skeletal muscle density. Increasing muscle tissue elevates your baseline resting metabolic rate (RMR), naturally burning more calories even at rest.</p>
+                </div>
+
+                <!-- Exercise 3 -->
+                <div class="exercise-card">
+                    <h3>Steady-State Aerobic Training</h3>
+                    <div class="example-badge">Real-Time Example: Power Walking or Cycling</div>
+                    
+                    <div class="card-block-title">How to Perform</div>
+                    <p>Maintain a sustained, conversational brisk walking pace or stationary bicycle routine for 45 minutes, keeping your heart rate inside your target fat-burn zone.</p>
+                    
+                    <div class="card-block-title">Systemic Benefits</div>
+                    <p>Utilizes stored adipose fat tissue directly as the primary metabolic fuel source while improving cardiovascular endurance without overtaxing joints.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Block 2: Hula Hooping Technique Showcase -->
+        <section id="hulahoop" class="block-section">
+            <div class="section-heading">
+                <h2>Aerobic Balance & Co-ordination</h2>
+                <p>Exploring creative, core-centric workout models that improve core stability and coordination.</p>
+            </div>
+
+            <div class="hoop-showcase">
+                <div class="hoop-media">
+                    <!-- High quality verified live hula hoop asset path on solid pink theme -->
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRnXo7fVg8msCli-uK3r1PEij4BFZR4Tn34AQT3SWZRUwRdd3LOU_4Tyomr3JsDMEPV1a4PyfzgJYWQw-E" alt="Hula Hooping Alignment Setup">
+                </div>
+                <div class="hoop-content">
+                    <h3>Hula Hooping Instruction</h3>
+                    <div class="hoop-tagline">Core Stabilization & Centering Mechanics</div>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;">Hula hooping is an excellent low-impact visceral fat burning exercise that challenges the deep stabilizers of your lower trunk. To sustain momentum, follow this systematic hooking technique:</p>
+                    
+                    <ul class="hooking-guide">
+                        <li><strong>1. Stance & Foundation:</strong> Place your feet hip-width apart, or step one foot slightly forward. Keep your knees loose and unlocked to absorb force comfortably.</li>
+                        <li><strong>2. High Spinal Hook Placement:</strong> Press the hoop flat against the small of your lower back, just above your waistline. Ensure it sits perfectly parallel to the floor before starting.</li>
+                        <li><strong>3. The Initial Momentum Drive:</strong> Give the hoop a strong, level push around your torso. Immediately begin shifting your weight backward and forward through your hips to keep it moving.</li>
+                        <li><strong>4. Structural Thrust Technique:</strong> Avoid moving your hips in a wide circle. Instead, drive your hips forward into the hoop as it passes your stomach, and push back as it touches your spine to lock the rotation into place.</li>
+                        <li><strong>5. Torso Stabilization:</strong> Keep your chest lifted and engage your core muscles to anchor the movement. If the hoop begins to slide down, bend your knees slightly to push up from your legs and drive it back to your waist.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Project Saheli Footer Area -->
+    <footer>
+        <div class="container">
+            <p>Project Saheli &mdash; Cultivating Sustainable Female Health & Longevity</p>
+            <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 15px;">&copy; 2026 Saheli Awareness Framework. Designed for deployment in healthcare and wellness app environments.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
