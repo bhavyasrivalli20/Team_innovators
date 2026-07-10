@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saheli – Smart Medicine Companion</title>
+  <style>
+    :root {
+      --bg: #f9eef4;
+      --surface: #ffffff;
+      --surface-strong: #fff3f8;
+      --primary: #da8ca9;
+      --primary-dark: #c86484;
+      --accent: #f3c3d3;
+      --text: #2f1b2f;
+      --muted: #7d6b7d;
+      --danger: #d66075;
+      --success: #4b8d7a;
+      --warning: #ef9a7f;
+      --border: rgba(83, 56, 77, 0.12);
+      font-size: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, sans-serif;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(250, 228, 239, 0.95) 35%, rgba(245, 209, 221, 0.88) 100%);
+      color: var(--text);
+    }
+
+    img.logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: 0 14px 40px rgba(204, 139, 171, 0.18);
+    }
+
+    .page-shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 22px 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #ffffff 0%, #ffe8f0 100%);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 20px 70px rgba(219, 163, 189, 0.16);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 640px;
+      font-size: 1rem;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 18px 40px rgba(205, 149, 175, 0.12);
+    }
+
+    .app-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .app-title h1 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .profile-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      border-radius: 16px;
+      padding: 12px 16px;
+      background: rgba(218, 140, 169, 0.14);
+      color: var(--primary-dark);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(211, 137, 156, 0.12);
+      transition: transform 0.2s ease;
+    }
+
+    .profile-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .auth-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fff3f8 100%);
+      border: 1px solid rgba(255,255,255,0.85);
+      border-radius: 28px;
+      padding: 26px;
+      margin-bottom: 28px;
+      box-shadow: 0 18px 46px rgba(204, 139, 171, 0.16);
+    }
+
+    .auth-tabs {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(218, 140, 169, 0.26);
+      background: rgba(255,255,255,0.9);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .auth-tab.active {
+      background: linear-gradient(135deg, #d57faa, #eaa0b7);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .auth-panel {
+      display: none;
+    }
+
+    .auth-panel.active {
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .profile-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(55, 19, 32, 0.44);
+      display: none;
+      place-items: center;
+      z-index: 100;
+      padding: 24px;
+    }
+
+    .profile-dialog {
+      width: min(560px, 100%);
+      border-radius: 28px;
+      background: white;
+      padding: 28px;
+      box-shadow: 0 26px 70px rgba(133, 58, 93, 0.22);
+      border: 1px solid rgba(255,255,255,0.9);
+    }
+
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .profile-dialog h3 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    .profile-dialog small {
+      color: var(--muted);
+    }
+
+    .profile-dialog .close-profile {
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .auth-footer {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .auth-switch {
+      color: var(--primary-dark);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .hero + .auth-card {
+      margin-top: 16px;
+    }
+
+    .app-header .signout-button {
+      background: rgba(255,255,255,0.8);
+      color: var(--primary-dark);
+      border: 1px solid rgba(218,140,169,0.35);
+    }
+
+    .app-header .cta-button {
+      background: linear-gradient(135deg, #d57faa, #eaa0b7);
+      color: white;
+    }
+
+    .dashboard-shell {
+      display: none;
+    }
+
+    .dashboard-shell.active {
+      display: block;
+    }
+
+    .dashboard-title {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dashboard-title h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .dashboard-title .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 700px) {
+      .app-header { flex-direction: column; align-items: stretch; }
+      .app-title { justify-content: center; }
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 18px 45px rgba(184, 128, 158, 0.12);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .card-title h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(218, 140, 169, 0.18);
+      color: var(--primary-dark);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(167, 122, 137, 0.2);
+      background: #fff;
+      color: var(--text);
+      font-size: 0.98rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(218, 140, 169, 0.15);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    button,
+    .tab-button {
+      border: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #d57faa, #eaa0b7);
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 12px 30px rgba(226, 149, 176, 0.2);
+    }
+
+    button:hover,
+    .tab-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.98;
+    }
+
+    button.secondary {
+      background: #fff;
+      border: 1px solid rgba(218,140,169,0.45);
+      color: var(--primary-dark);
+      box-shadow: 0 10px 24px rgba(203, 145, 167, 0.12);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 0;
+    }
+
+    .stat-card {
+      padding: 22px;
+      background: linear-gradient(180deg, #fff, #fff7fb);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow: 0 16px 30px rgba(194, 144, 170, 0.12);
+    }
+
+    .stat-card h3 {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .stat-card p {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .progress-track {
+      height: 10px;
+      width: 100%;
+      border-radius: 999px;
+      background: rgba(218, 140, 169, 0.14);
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d56b97, #f6a8c2);
+      width: 0%;
+      transition: width 0.35s ease;
+    }
+
+    .table-shell {
+      overflow-x: auto;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), #fff7f9);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 18px 42px rgba(200, 156, 178, 0.1);
+      padding: 20px;
+    }
+
+    .table-shell table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 14px;
+      min-width: 900px;
+    }
+
+    .table-shell th,
+    .table-shell td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .table-shell th {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .table-shell td {
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      color: #4d3a4e;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .badge.pending { background: rgba(242, 171, 193, 0.24); color: #b74f79; }
+    .badge.taken { background: rgba(115, 190, 173, 0.2); color: #2f7a62; }
+    .badge.missed { background: rgba(222, 145, 157, 0.16); color: #a04661; }
+    .badge.skipped { background: rgba(207, 188, 215, 0.24); color: #6a597b; }
+
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action-button {
+      border: none;
+      border-radius: 14px;
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .action-button:hover { transform: translateY(-1px); }
+    .action-button.taken { background: #4b8d7a; color: #fff; }
+    .action-button.skip { background: #f0b9b2; color: #742b34; }
+    .action-button.edit { background: #f6d7ea; color: #7d4c6b; }
+    .action-button.delete { background: #fcd7db; color: #8c2d3f; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .toolbar input {
+      flex: 1 1 260px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tab-button {
+      background: rgba(255,255,255,0.85);
+      color: var(--text);
+      box-shadow: 0 10px 24px rgba(206, 146, 174, 0.08);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #d57faa, #eaa0b7);
+      color: white;
+      box-shadow: 0 12px 30px rgba(226, 149, 176, 0.22);
+    }
+
+    .toast-wrapper {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      display: grid;
+      gap: 12px;
+      z-index: 99;
+      width: min(360px, calc(100% - 32px));
+    }
+
+    .toast {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--text);
+      border: 1px solid rgba(218, 140, 169, 0.2);
+      box-shadow: 0 20px 40px rgba(192, 138, 166, 0.14);
+      animation: slideIn 0.35s ease;
+    }
+
+    .toast strong { display: block; margin-bottom: 6px; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(55, 19, 32, 0.32);
+      display: none;
+      place-items: center;
+      z-index: 98;
+      padding: 24px;
+    }
+
+    .popup {
+      width: min(560px, 100%);
+      border-radius: 28px;
+      background: white;
+      padding: 28px;
+      box-shadow: 0 26px 70px rgba(133, 58, 93, 0.22);
+      border: 1px solid rgba(255,255,255,0.9);
+      text-align: center;
+    }
+
+    .popup h3 {
+      margin: 0 0 14px;
+      font-size: 1.5rem;
+    }
+
+    .popup p {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .popup .popup-info {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .popup .popup-info span {
+      font-weight: 700;
+      color: #6f3a59;
+    }
+
+    .popup button {
+      width: 100%;
+      max-width: 220px;
+    }
+
+    .note-box {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(237, 201, 213, 0.3);
+      color: #7d4b64;
+      border: 1px solid rgba(218, 140, 169, 0.3);
+    }
+
+    .legend {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page-shell { padding: 18px 0 32px; }
+      .hero { padding: 20px; grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin: 14px auto 0; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .toolbar input { width: 100%; }
+      .table-shell table { min-width: 100%; }
+      .table-shell th, .table-shell td { padding: 12px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <section class="hero">
+      <img src="l.jpeg" alt="Saheli Logo" class="logo" />
+      <div>
+        <p class="pill">Saheli</p>
+        <h1>Saheli – Smart Medicine Companion</h1>
+        <p>Never miss your medicines again. Track adherence, get reminders, and spot repeated missed doses with confidence.</p>
+      </div>
+    </section>
+
+    <section class="app-header" id="appHeader">
+      <div class="app-title">
+        <img src="l.jpeg" alt="Saheli Logo" class="logo" />
+        <div>
+          <p class="pill">Saheli</p>
+          <h1>Saheli – Smart Medicine Companion</h1>
+        </div>
+      </div>
+      <div class="button-row" id="headerActions">
+        <button class="profile-button hidden" id="requestNotifications">Enable Notifications</button>
+        <button class="profile-button hidden" id="openProfileButton">Profile</button>
+        <button class="profile-button hidden signout-button" id="signOutButton">Sign Out</button>
+      </div>
+    </section>
+
+    <section class="auth-card" id="authCard">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-panel="signInPanel" id="signInTab">Sign In</button>
+        <button class="auth-tab" data-panel="signUpPanel" id="signUpTab">Sign Up</button>
+      </div>
+
+      <div class="auth-panel active" id="signInPanel">
+        <form id="signInForm" class="form-grid">
+          <div class="field">
+            <label for="signInEmail">Email Address</label>
+            <input type="email" id="signInEmail" placeholder="Enter email address" required />
+          </div>
+          <div class="field">
+            <label for="signInPassword">Password</label>
+            <input type="password" id="signInPassword" placeholder="Enter password" required />
+          </div>
+          <div class="button-row">
+            <button type="submit">Sign In</button>
+          </div>
+          <p class="auth-footer">New to Saheli? <span class="auth-switch" id="switchToSignUp">Create an account</span></p>
+        </form>
+      </div>
+
+      <div class="auth-panel" id="signUpPanel">
+        <form id="signUpForm" class="form-grid">
+          <div class="field">
+            <label for="signUpName">Full Name</label>
+            <input type="text" id="signUpName" placeholder="Enter full name" required />
+          </div>
+          <div class="field">
+            <label for="signUpAge">Age</label>
+            <input type="number" id="signUpAge" min="1" max="120" placeholder="Enter age" required />
+          </div>
+          <div class="field">
+            <label for="signUpEmail">Email Address</label>
+            <input type="email" id="signUpEmail" placeholder="Enter email address" required />
+          </div>
+          <div class="field">
+            <label for="signUpPassword">Password</label>
+            <input type="password" id="signUpPassword" placeholder="Create password" required />
+          </div>
+          <div class="field">
+            <label for="signUpCaregiverEmail">Caregiver Email (Optional)</label>
+            <input type="email" id="signUpCaregiverEmail" placeholder="Enter caregiver email" />
+          </div>
+          <div class="button-row">
+            <button type="submit">Sign Up</button>
+          </div>
+          <p class="auth-footer">Already have an account? <span class="auth-switch" id="switchToSignIn">Sign in</span></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="dashboard-shell" id="dashboardShell">
+      <section class="card">
+        <div class="card-title">
+          <div>
+            <h2>Medicine Scheduler</h2>
+            <p class="legend">Add medications and schedule reminders with food instructions.</p>
+          </div>
+          <span class="pill">Daily Routine</span>
+        </div>
+        <form id="medicineForm" class="form-grid">
+          <div class="field">
+            <label for="medicineName">Medicine Name</label>
+            <input type="text" id="medicineName" placeholder="e.g. Vitamin D" required />
+          </div>
+          <div class="field">
+            <label for="dosage">Dosage</label>
+            <input type="text" id="dosage" placeholder="e.g. 1 tablet" required />
+          </div>
+          <div class="field">
+            <label for="reminderTime">Reminder Time</label>
+            <input type="time" id="reminderTime" required />
+          </div>
+          <div class="field">
+            <label for="foodInstruction">Food Instruction</label>
+            <select id="foodInstruction" required>
+              <option value="Before Food">Before Food</option>
+              <option value="After Food">After Food</option>
+              <option value="With Food">With Food</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="duration">Duration (Days)</label>
+            <input type="number" id="duration" min="1" max="90" value="7" required />
+          </div>
+          <div class="button-row">
+            <button type="submit" id="saveMedicineButton">Add Medicine</button>
+            <button type="button" class="secondary" id="resetMedicine">Reset</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <section class="card">
+      <div class="card-title">
+        <div>
+          <h2>Live Dashboard</h2>
+          <p class="legend">Key adherence metrics update automatically as reminders and actions happen.</p>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+        <article class="stat-card">
+          <h3>Total Medicines</h3>
+          <p id="totalMedicines">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Medicines Taken Today</h3>
+          <p id="takenToday">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Pending Medicines</h3>
+          <p id="pendingMedicines">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Missed Doses</h3>
+          <p id="missedDoses">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Adherence %</h3>
+          <p id="adherencePercent">100%</p>
+          <div class="progress-track" aria-label="Medication adherence progress"><div class="progress-fill" id="adherenceFill"></div></div>
+        </article>
+        <article class="stat-card">
+          <h3>Current Reminder</h3>
+          <p id="currentReminder">No active reminder</p>
+        </article>
+        <article class="stat-card" style="grid-column: span 3;">
+          <h3>Highest Consecutive Missed Doses</h3>
+          <p id="consecutiveMissed">0</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <div>
+          <h2>Medicine List</h2>
+          <p class="legend">Search, filter, and manage each medication schedule from one place.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search medicine name" aria-label="Search medicine" />
+        <div class="filter-group">
+          <button class="tab-button active" data-filter="all">All</button>
+          <button class="tab-button" data-filter="pending">Pending</button>
+          <button class="tab-button" data-filter="taken">Taken</button>
+          <button class="tab-button" data-filter="missed">Missed</button>
+        </div>
+      </div>
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr>
+              <th>Medicine</th>
+              <th>Dosage</th>
+              <th>Reminder Time</th>
+              <th>Food Instruction</th>
+              <th>Duration</th>
+              <th>Status</th>
+              <th>Missed Count</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="medicineTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast-wrapper" id="toastWrapper"></div>
+
+  <div class="profile-modal" id="profileModal">
+    <div class="profile-dialog">
+      <div class="profile-header">
+        <div>
+          <h3>Profile</h3>
+          <small>View or update your account details.</small>
+        </div>
+        <button class="close-profile" id="closeProfileButton">×</button>
+      </div>
+      <form id="profileForm" class="form-grid">
+        <div class="field">
+          <label for="profileName">Full Name</label>
+          <input type="text" id="profileName" required />
+        </div>
+        <div class="field">
+          <label for="profileAge">Age</label>
+          <input type="number" id="profileAge" min="1" max="120" required />
+        </div>
+        <div class="field">
+          <label for="profileEmail">Email Address</label>
+          <input type="email" id="profileEmail" required disabled />
+        </div>
+        <div class="field">
+          <label for="profileCaregiverEmail">Caregiver Email (Optional)</label>
+          <input type="email" id="profileCaregiverEmail" />
+        </div>
+        <div class="button-row">
+          <button type="submit">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="reminderOverlay">
+    <div class="popup">
+      <h3>Medicine Reminder</h3>
+      <p id="reminderMessage">Time to take your medicine.</p>
+      <div class="popup-info">
+        <span id="popupMedicineName"></span>
+        <span id="popupReminderTime"></span>
+      </div>
+      <button id="popupTakenButton">Mark as Taken</button>
+      <p class="note-box">This reminder is time-sensitive. If it is not acknowledged within one hour, it will be marked missed automatically.</p>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEYS = {
+      user: 'saheliCurrentUserProfile',
+      users: 'saheliUserList',
+      medicines: 'saheliMedicineList'
+    };
+
+    const reminderWindowMinutes = 60;
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let editingMedicineId = null;
+    let activeReminder = null;
+
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const profileForm = document.getElementById('profileForm');
+    const profileModal = document.getElementById('profileModal');
+    const openProfileButton = document.getElementById('openProfileButton');
+    const closeProfileButton = document.getElementById('closeProfileButton');
+    const signOutButton = document.getElementById('signOutButton');
+    const signInEmail = document.getElementById('signInEmail');
+    const signInPassword = document.getElementById('signInPassword');
+    const signUpName = document.getElementById('signUpName');
+    const signUpAge = document.getElementById('signUpAge');
+    const signUpEmail = document.getElementById('signUpEmail');
+    const signUpPassword = document.getElementById('signUpPassword');
+    const signUpCaregiverEmail = document.getElementById('signUpCaregiverEmail');
+    const profileName = document.getElementById('profileName');
+    const profileAge = document.getElementById('profileAge');
+    const profileEmail = document.getElementById('profileEmail');
+    const profileCaregiverEmail = document.getElementById('profileCaregiverEmail');
+    const medicineForm = document.getElementById('medicineForm');
+    const requestNotificationsButton = document.getElementById('requestNotifications');
+    const resetMedicineButton = document.getElementById('resetMedicine');
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.tab-button');
+    const medicineTableBody = document.getElementById('medicineTableBody');
+    const toastWrapper = document.getElementById('toastWrapper');
+    const reminderOverlay = document.getElementById('reminderOverlay');
+    const reminderMessage = document.getElementById('reminderMessage');
+    const popupMedicineName = document.getElementById('popupMedicineName');
+    const popupReminderTime = document.getElementById('popupReminderTime');
+    const popupTakenButton = document.getElementById('popupTakenButton');
+    const saveMedicineButton = document.getElementById('saveMedicineButton');
+
+    const cards = {
+      total: document.getElementById('totalMedicines'),
+      takenToday: document.getElementById('takenToday'),
+      pending: document.getElementById('pendingMedicines'),
+      missed: document.getElementById('missedDoses'),
+      adherence: document.getElementById('adherencePercent'),
+      adherenceFill: document.getElementById('adherenceFill'),
+      currentReminder: document.getElementById('currentReminder'),
+      consecutiveMissed: document.getElementById('consecutiveMissed')
+    };
+
+    function createToast(message, title = 'Saheli Update') {
+      const notice = document.createElement('div');
+      notice.className = 'toast';
+      notice.innerHTML = `<strong>${title}</strong><div>${message}</div>`;
+      toastWrapper.appendChild(notice);
+      setTimeout(() => {
+        notice.style.opacity = '0';
+        notice.style.transform = 'translateX(8px)';
+        setTimeout(() => notice.remove(), 450);
+      }, 4200);
+    }
+
+    function saveStorage(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function loadStorage(key, fallback) {
+      const raw = localStorage.getItem(key);
+      try {
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function getUserProfile() {
+      const profile = loadStorage(STORAGE_KEYS.user, null);
+      if (profile && profile.email) {
+        return profile;
+      }
+      const currentUser = getCurrentUser();
+      if (currentUser) {
+        return getUserFromEmail(currentUser) || { fullName: '', age: '', email: '', caregiverEmail: '', password: '' };
+      }
+      return { fullName: '', age: '', email: '', caregiverEmail: '', password: '' };
+    }
+
+    function getUserList() {
+      return loadStorage(STORAGE_KEYS.users, []);
+    }
+
+    function saveUserList(users) {
+      saveStorage(STORAGE_KEYS.users, users);
+    }
+
+    function getAllMedicines() {
+      return loadStorage(STORAGE_KEYS.medicines, []);
+    }
+
+    function saveAllMedicines(medicines) {
+      saveStorage(STORAGE_KEYS.medicines, medicines);
+    }
+
+    function getMedicineList() {
+      const currentUser = getCurrentUser();
+      if (!currentUser) return [];
+      return getAllMedicines().filter((medicine) => medicine.ownerEmail === currentUser);
+    }
+
+    function getCurrentUser() {
+      return loadStorage('saheliCurrentUser', null);
+    }
+
+    function setCurrentUser(email) {
+      saveStorage('saheliCurrentUser', email);
+    }
+
+    function clearCurrentUser() {
+      localStorage.removeItem(STORAGE_KEYS.user);
+      localStorage.removeItem('saheliCurrentUser');
+    }
+
+    function getUserFromEmail(email) {
+      const users = getUserList();
+      return users.find((user) => user.email === email) || null;
+    }
+
+    function saveUserProfile(profile) {
+      saveCurrentUserProfile(profile);
+      createToast('Profile saved locally for Saheli.', 'Profile Updated');
+      saveUserToBackend(profile);
+    }
+
+    function saveCurrentUserProfile(profile) {
+      saveStorage(STORAGE_KEYS.user, profile);
+      const users = getUserList();
+      const existingIndex = users.findIndex((user) => user.email === profile.email);
+      if (existingIndex >= 0) {
+        users[existingIndex] = profile;
+      } else {
+        users.push(profile);
+      }
+      saveUserList(users);
+    }
+
+    function saveMedicines(medicines) {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        saveAllMedicines(medicines);
+        return;
+      }
+      const otherMedicines = getAllMedicines().filter((medicine) => medicine.ownerEmail !== currentUser);
+      const currentUserMedicines = medicines.map((medicine) => ({ ...medicine, ownerEmail: currentUser }));
+      saveAllMedicines([...otherMedicines, ...currentUserMedicines]);
+    }
+
+    function formatTime(value) {
+      return value ? value : '--:--';
+    }
+
+    function getTodayString() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function parseHHMM(timeString) {
+      const [hours, minutes] = timeString.split(':').map(Number);
+      return { hours, minutes };
+    }
+
+    function buildDateTime(dateString, timeString) {
+      const { hours, minutes } = parseHHMM(timeString);
+      const date = new Date(dateString + 'T00:00:00');
+      date.setHours(hours, minutes, 0, 0);
+      return date;
+    }
+
+    function compareReminderTime(timeString) {
+      const target = buildDateTime(getTodayString(), timeString);
+      const now = new Date();
+      const diff = Math.floor((now - target) / 60000);
+      return diff;
+    }
+
+    function isWithinDuration(medicine) {
+      const start = new Date(medicine.startDate + 'T00:00:00');
+      const end = new Date(start);
+      end.setDate(end.getDate() + Number(medicine.duration) - 1);
+      const today = new Date(getTodayString() + 'T00:00:00');
+      return today >= start && today <= end;
+    }
+
+    function resetDailyStatusIfNeeded(medicine) {
+      const today = getTodayString();
+      if (medicine.lastActionDate !== today && isWithinDuration(medicine)) {
+        medicine.status = 'pending';
+        medicine.reminderActive = false;
+        medicine.lastActionDate = today;
+      }
+    }
+
+    function getStatusBadge(status) {
+      const label = {
+        pending: 'Pending',
+        taken: 'Taken',
+        missed: 'Missed',
+        skipped: 'Skipped'
+      }[status] || 'Pending';
+      return `<span class="badge ${status}">${label}</span>`;
+    }
+
+    function getFilteredMedicines() {
+      const medicines = getMedicineList().map((medicine) => {
+        if (!medicine.lastActionDate) {
+          medicine.lastActionDate = getTodayString();
+          medicine.reminderActive = false;
+        }
+        if (isWithinDuration(medicine)) {
+          resetDailyStatusIfNeeded(medicine);
+        }
+        return medicine;
+      });
+      saveMedicines(medicines);
+
+      return medicines.filter((medicine) => {
+        const matchFilter = currentFilter === 'all' || medicine.status === currentFilter;
+        const matchSearch = medicine.name.toLowerCase().includes(currentSearch.toLowerCase());
+        return matchFilter && matchSearch;
+      });
+    }
+
+    function renderMedicineTable() {
+      const medicines = getFilteredMedicines();
+      medicineTableBody.innerHTML = medicines.map((medicine) => `
+        <tr>
+          <td><strong>${medicine.name}</strong></td>
+          <td>${medicine.dosage}</td>
+          <td>${formatTime(medicine.time)}</td>
+          <td>${medicine.food}</td>
+          <td>${medicine.duration}d</td>
+          <td>${getStatusBadge(medicine.status)}</td>
+          <td>${medicine.missedCount || 0}</td>
+          <td>
+            <div class="action-group">
+              <button class="action-button taken" data-action="taken" data-id="${medicine.id}">Taken</button>
+              <button class="action-button skip" data-action="skip" data-id="${medicine.id}">Skip</button>
+              <button class="action-button edit" data-action="edit" data-id="${medicine.id}">Edit</button>
+              <button class="action-button delete" data-action="delete" data-id="${medicine.id}">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+      bindTableActions();
+      updateDashboard();
+    }
+
+    function bindTableActions() {
+      medicineTableBody.querySelectorAll('button').forEach((button) => {
+        const action = button.dataset.action;
+        const id = button.dataset.id;
+        button.onclick = () => {
+          if (action === 'taken') handleMedicineAction(id, 'taken');
+          if (action === 'skip') handleMedicineAction(id, 'skipped');
+          if (action === 'edit') beginEditMedicine(id);
+          if (action === 'delete') deleteMedicine(id);
+        };
+      });
+    }
+
+    function handleMedicineAction(id, actionType) {
+      const medicines = getMedicineList();
+      const medicine = medicines.find((entry) => entry.id === id);
+      if (!medicine) return;
+      const today = getTodayString();
+      if (actionType === 'taken') {
+        medicine.status = 'taken';
+        medicine.lastActionDate = today;
+        medicine.consecutiveMissed = 0;
+        createToast(`${medicine.name} marked as taken. Great job!`, 'Dose Confirmed');
+        markTakenBackend(medicine.id);
+      }
+      if (actionType === 'skipped') {
+        medicine.status = 'skipped';
+        medicine.lastActionDate = today;
+        createToast(`${medicine.name} was skipped for today.`, 'Dose Skipped');
+      }
+      if (actionType === 'missed') {
+        medicine.status = 'missed';
+        medicine.lastActionDate = today;
+        medicine.missedCount = (medicine.missedCount || 0) + 1;
+        medicine.consecutiveMissed = (medicine.consecutiveMissed || 0) + 1;
+        processConsecutiveMissed(medicine);
+        markMissedBackend(medicine.id);
+      }
+      saveMedicines(medicines);
+      renderMedicineTable();
+    }
+
+    function beginEditMedicine(id) {
+      const medicine = getMedicineList().find((item) => item.id === id);
+      if (!medicine) return;
+      document.getElementById('medicineName').value = medicine.name;
+      document.getElementById('dosage').value = medicine.dosage;
+      document.getElementById('reminderTime').value = medicine.time;
+      document.getElementById('foodInstruction').value = medicine.food;
+      document.getElementById('duration').value = medicine.duration;
+      editingMedicineId = id;
+      saveMedicineButton.textContent = 'Update Medicine';
+      createToast('You can edit the medicine details and save updates.', 'Edit Mode');
+    }
+
+    function deleteMedicine(id) {
+      const medicines = getMedicineList().filter((item) => item.id !== id);
+      saveMedicines(medicines);
+      renderMedicineTable();
+      createToast('Medicine removed from your schedule.', 'Deleted');
+      deleteMedicineBackend(id);
+    }
+
+    function processConsecutiveMissed(medicine) {
+      if (medicine.consecutiveMissed === 2) {
+        createToast(`You missed ${medicine.name} two times in a row. Consistency matters!`, 'Friendly Reminder');
+      }
+      if (medicine.consecutiveMissed === 3) {
+        createToast(`A backend reminder should be sent to ${medicine.name} user.`, 'Email Reminder Suggested');
+        // placeholder: sendEmailToUser(medicine);
+      }
+      if (medicine.consecutiveMissed >= 5) {
+        createToast(`Caregiver should be notified for ${medicine.name}.`, 'Caregiver Alert');
+        // placeholder: notifyCaregiver(medicine);
+      }
+    }
+
+    function isBacklogActive(medicine) {
+      return medicine.status === 'pending' && isWithinDuration(medicine);
+    }
+
+    function findCurrentReminder() {
+      const medicines = getMedicineList();
+      const now = new Date();
+      const dueMedicines = medicines
+        .filter((medicine) => isBacklogActive(medicine))
+        .map((medicine) => {
+          const reminderTime = buildDateTime(getTodayString(), medicine.time);
+          return { medicine, reminderTime };
+        })
+        .filter(({ reminderTime }) => reminderTime >= now || (reminderTime < now && reminderTime >= new Date(now - reminderWindowMinutes * 60000)))
+        .sort((a, b) => a.reminderTime - b.reminderTime);
+      return dueMedicines[0] || null;
+    }
+
+    function updateDashboard() {
+      const medicines = getMedicineList();
+      const today = getTodayString();
+      let takenCount = 0;
+      let pendingCount = 0;
+      let missedCount = 0;
+      let dueCount = 0;
+      let consecutiveMissedMax = 0;
+
+      medicines.forEach((medicine) => {
+        if (isWithinDuration(medicine)) {
+          if (medicine.status === 'taken' && medicine.lastActionDate === today) takenCount += 1;
+          if (medicine.status === 'pending') pendingCount += 1;
+          if (medicine.status === 'missed') missedCount += 1;
+          if (medicine.status !== 'taken' && medicine.status !== 'skipped' && isBacklogActive(medicine)) dueCount += 1;
+          consecutiveMissedMax = Math.max(consecutiveMissedMax, medicine.consecutiveMissed || 0);
+        }
+      });
+
+      const total = medicines.filter(isWithinDuration).length;
+      const adherencePercent = total === 0 ? 100 : Math.round((takenCount / Math.max(1, takenCount + missedCount + pendingCount)) * 100);
+      cards.total.textContent = total;
+      cards.takenToday.textContent = takenCount;
+      cards.pending.textContent = pendingCount;
+      cards.missed.textContent = missedCount;
+      cards.adherence.textContent = `${adherencePercent}%`;
+      cards.adherenceFill.style.width = `${Math.min(100, adherencePercent)}%`;
+      cards.consecutiveMissed.textContent = String(consecutiveMissedMax);
+
+      const nextReminder = findCurrentReminder();
+      if (nextReminder) {
+        cards.currentReminder.textContent = `${nextReminder.medicine.name} at ${nextReminder.medicine.time}`;
+      } else {
+        cards.currentReminder.textContent = 'No active reminder';
+      }
+    }
+
+    function requestNotificationPermission() {
+      if (!('Notification' in window)) {
+        createToast('Browser notifications are not supported in this environment.', 'Notification Unavailable');
+        return;
+      }
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          createToast('Notification permission granted.', 'Ready');
+        } else {
+          createToast('Notification permission denied. You will still see on-screen reminders.', 'Notice');
+        }
+      });
+    }
+
+    function notifyBrowser(title, message) {
+      if (!('Notification' in window)) return;
+      if (Notification.permission === 'granted') {
+        new Notification(title, {
+          body: message,
+          icon: 'l.jpeg'
+        });
+      }
+    }
+
+    function playAlertSound() {
+      try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const gain = context.createGain();
+        const oscillator = context.createOscillator();
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 440;
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        gain.gain.setValueAtTime(0.04, context.currentTime);
+        oscillator.start();
+        oscillator.stop(context.currentTime + 0.2);
+      } catch (error) {
+        console.warn('Audio notification not available.', error);
+      }
+    }
+
+    function showReminderPopupForMedicine(medicine) {
+      activeReminder = medicine;
+      reminderMessage.textContent = `It's time to take ${medicine.name}. Please acknowledge this reminder.`;
+      popupMedicineName.textContent = `Medicine: ${medicine.name}`;
+      popupReminderTime.textContent = `Time: ${medicine.time} · ${medicine.food}`;
+      reminderOverlay.style.display = 'grid';
+    }
+
+    function closeReminderPopup() {
+      reminderOverlay.style.display = 'none';
+      activeReminder = null;
+    }
+
+    function checkReminders() {
+      const medicines = getMedicineList();
+      const now = new Date();
+      const today = getTodayString();
+      let reminderShown = false;
+
+      medicines.forEach((medicine) => {
+        if (!isWithinDuration(medicine)) return;
+        if (medicine.lastActionDate !== today) {
+          resetDailyStatusIfNeeded(medicine);
+        }
+        if (medicine.status !== 'pending') return;
+
+        const reminderTime = buildDateTime(today, medicine.time);
+        const minutesSinceReminder = Math.floor((now - reminderTime) / 60000);
+        const minutesBeforeReminder = Math.floor((reminderTime - now) / 60000);
+
+        if (!medicine.reminderActive && minutesSinceReminder >= 0 && minutesSinceReminder < reminderWindowMinutes) {
+          medicine.reminderActive = true;
+          notifyBrowser('Saheli Medicine Reminder', `Time to take ${medicine.name} at ${medicine.time}.`);
+          showReminderPopupForMedicine(medicine);
+          playAlertSound();
+          createToast(`Reminder: ${medicine.name} is due now.`, 'Medicine Reminder');
+          reminderShown = true;
+        }
+
+        if (minutesSinceReminder >= reminderWindowMinutes && medicine.status === 'pending' && medicine.reminderActive) {
+          handleMedicineAction(medicine.id, 'missed');
+          medicine.reminderActive = false;
+        }
+      });
+
+      if (reminderShown) saveMedicines(medicines);
+      saveMedicines(medicines);
+      renderMedicineTable();
+      updateDashboard();
+    }
+
+    function clearAuthForms() {
+      signInForm.reset();
+      signUpForm.reset();
+    }
+
+    function signIn(event) {
+      event.preventDefault();
+      const email = signInEmail.value.trim();
+      const password = signInPassword.value;
+      const profile = getUserFromEmail(email);
+      if (profile && profile.password === password) {
+        setCurrentUser(email);
+        saveStorage(STORAGE_KEYS.user, profile);
+        clearAuthForms();
+        renderMedicineTable();
+        showDashboard();
+        createToast('Welcome back to Saheli.', 'Signed In');
+      } else {
+        createToast('Invalid email or password. Please try again.', 'Sign In Failed');
+      }
+    }
+
+    function signUp(event) {
+      event.preventDefault();
+      const profile = {
+        fullName: signUpName.value.trim(),
+        age: signUpAge.value.trim(),
+        email: signUpEmail.value.trim(),
+        password: signUpPassword.value,
+        caregiverEmail: signUpCaregiverEmail.value.trim()
+      };
+      if (getUserFromEmail(profile.email)) {
+        createToast('An account with this email already exists. Please sign in.', 'Sign Up Failed');
+        return;
+      }
+      saveCurrentUserProfile(profile);
+      setCurrentUser(profile.email);
+      saveStorage(STORAGE_KEYS.user, profile);
+      clearAuthForms();
+      renderMedicineTable();
+      showDashboard();
+      createToast('Account created successfully.', 'Welcome to Saheli');
+    }
+
+    function updateProfile(event) {
+      event.preventDefault();
+      const profile = getUserProfile();
+      profile.fullName = profileName.value.trim();
+      profile.age = profileAge.value.trim();
+      profile.caregiverEmail = profileCaregiverEmail.value.trim();
+      saveUserProfile(profile);
+      closeProfileModal();
+    }
+
+    function submitMedicineForm(event) {
+      event.preventDefault();
+      const newMedicine = {
+        id: editingMedicineId || `med-${Date.now()}`,
+        name: document.getElementById('medicineName').value.trim(),
+        dosage: document.getElementById('dosage').value.trim(),
+        time: document.getElementById('reminderTime').value,
+        food: document.getElementById('foodInstruction').value,
+        duration: Number(document.getElementById('duration').value),
+        startDate: getTodayString(),
+        status: 'pending',
+        missedCount: 0,
+        consecutiveMissed: 0,
+        lastActionDate: getTodayString(),
+        reminderActive: false,
+        ownerEmail: getCurrentUser() || 'guest',
+        createdAt: new Date().toISOString()
+      };
+
+      const medicines = getMedicineList();
+      if (editingMedicineId) {
+        const index = medicines.findIndex((item) => item.id === editingMedicineId);
+        if (index !== -1) {
+          medicines[index] = { ...medicines[index], ...newMedicine };
+        }
+        editingMedicineId = null;
+        saveMedicineButton.textContent = 'Add Medicine';
+        createToast('Medicine schedule updated successfully.', 'Updated');
+      } else {
+        medicines.push(newMedicine);
+        createToast('Medicine added to your schedule.', 'New Medicine');
+      }
+      saveMedicines(medicines);
+      addMedicineBackend(newMedicine);
+      medicineForm.reset();
+      document.getElementById('foodInstruction').value = 'Before Food';
+      renderMedicineTable();
+    }
+
+    function resetMedicineForm() {
+      medicineForm.reset();
+      document.getElementById('foodInstruction').value = 'Before Food';
+      editingMedicineId = null;
+      saveMedicineButton.textContent = 'Add Medicine';
+    }
+
+    function attachFilterHandlers() {
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          filterButtons.forEach((btn) => btn.classList.remove('active'));
+          button.classList.add('active');
+          currentFilter = button.dataset.filter;
+          renderMedicineTable();
+        });
+      });
+    }
+
+    function attachSearchHandler() {
+      searchInput.addEventListener('input', (event) => {
+        currentSearch = event.target.value.trim();
+        renderMedicineTable();
+      });
+    }
+
+    function fillProfileModal() {
+      const profile = getUserProfile();
+      profileName.value = profile.fullName || '';
+      profileAge.value = profile.age || '';
+      profileEmail.value = profile.email || '';
+      profileCaregiverEmail.value = profile.caregiverEmail || '';
+    }
+
+    function openProfileModal() {
+      fillProfileModal();
+      profileModal.style.display = 'grid';
+    }
+
+    function closeProfileModal() {
+      profileModal.style.display = 'none';
+    }
+
+    function showDashboard() {
+      document.getElementById('authCard').classList.add('hidden');
+      document.getElementById('dashboardShell').classList.add('active');
+      openProfileButton.classList.remove('hidden');
+      signOutButton.classList.remove('hidden');
+      requestNotificationsButton.classList.remove('hidden');
+      updateDashboard();
+    }
+
+    function hideDashboard() {
+      document.getElementById('authCard').classList.remove('hidden');
+      document.getElementById('dashboardShell').classList.remove('active');
+      openProfileButton.classList.add('hidden');
+      signOutButton.classList.add('hidden');
+      requestNotificationsButton.classList.add('hidden');
+    }
+
+    function switchAuthPanel(panelId) {
+      document.querySelectorAll('.auth-panel').forEach((panel) => panel.classList.remove('active'));
+      document.querySelectorAll('.auth-tab').forEach((tab) => tab.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+      document.querySelector(`.auth-tab[data-panel='${panelId}']`).classList.add('active');
+    }
+
+    async function initialize() {
+      const currentUser = getCurrentUser();
+      await loadMedicinesFromBackend();
+      renderMedicineTable();
+      attachFilterHandlers();
+      attachSearchHandler();
+      updateDashboard();
+
+      signInForm.addEventListener('submit', signIn);
+      signUpForm.addEventListener('submit', signUp);
+      profileForm.addEventListener('submit', updateProfile);
+      closeProfileButton.addEventListener('click', closeProfileModal);
+      openProfileButton.addEventListener('click', openProfileModal);
+      signOutButton.addEventListener('click', () => {
+        clearCurrentUser();
+        hideDashboard();
+        clearAuthForms();
+        switchAuthPanel('signInPanel');
+        closeProfileModal();
+        createToast('You have signed out.', 'Signed Out');
+      });
+      document.getElementById('signInTab').addEventListener('click', () => switchAuthPanel('signInPanel'));
+      document.getElementById('signUpTab').addEventListener('click', () => switchAuthPanel('signUpPanel'));
+      document.getElementById('switchToSignUp').addEventListener('click', () => switchAuthPanel('signUpPanel'));
+      document.getElementById('switchToSignIn').addEventListener('click', () => switchAuthPanel('signInPanel'));
+      medicineForm.addEventListener('submit', submitMedicineForm);
+      requestNotificationsButton.addEventListener('click', requestNotificationPermission);
+      resetMedicineButton.addEventListener('click', resetMedicineForm);
+      popupTakenButton.addEventListener('click', () => {
+        if (activeReminder) {
+          handleMedicineAction(activeReminder.id, 'taken');
+        }
+        closeReminderPopup();
+      });
+      reminderOverlay.addEventListener('click', (event) => {
+        if (event.target === reminderOverlay) closeReminderPopup();
+      });
+
+      if (currentUser && getUserFromEmail(currentUser)) {
+        showDashboard();
+      }
+
+      setInterval(() => {
+        checkReminders();
+      }, 30000);
+      checkReminders();
+    }
+
+    /**
+     * The following functions are prepared for future Flask backend integration.
+     * They are not executed automatically, but they demonstrate clear API hooks.
+     */
+    async function fetchJson(url, options = {}) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          const body = await response.text();
+          throw new Error(`${response.status} ${response.statusText}: ${body}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.warn('Fetch error for', url, error);
+        throw error;
+      }
+    }
+
+    async function loadMedicinesFromBackend() {
+      try {
+        const medicines = await fetchJson('/get_medicines');
+        if (Array.isArray(medicines)) {
+          saveMedicines(medicines);
+        }
+      } catch (error) {
+        console.warn('Unable to load medicines from backend:', error);
+      }
+    }
+
+    async function saveUserToBackend(profile) {
+      try {
+        await fetchJson('/save_user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile)
+        });
+      } catch (error) {
+        console.warn('Backend user save failed:', error);
+      }
+    }
+
+    async function addMedicineBackend(medicine) {
+      try {
+        await fetchJson('/add_medicine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(medicine)
+        });
+      } catch (error) {
+        console.warn('Backend add medicine failed:', error);
+      }
+    }
+
+    async function markTakenBackend(medicineId) {
+      try {
+        await fetch('/mark_taken', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: medicineId })
+        });
+      } catch (error) {
+        console.warn('Backend mark taken failed:', error);
+      }
+    }
+
+    async function markMissedBackend(medicineId) {
+      try {
+        await fetch('/mark_missed', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: medicineId })
+        });
+      } catch (error) {
+        console.warn('Backend mark missed failed:', error);
+      }
+    }
+
+    async function deleteMedicineBackend(medicineId) {
+      try {
+        await fetchJson(`/delete_medicine?id=${encodeURIComponent(medicineId)}`, {
+          method: 'DELETE'
+        });
+      } catch (error) {
+        console.warn('Backend delete failed:', error);
+      }
+    }
+
+    async function sendEmailBackend(payload) {
+      try {
+        await fetch('/send_email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (error) {
+        console.warn('Backend email notification failed:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
+</body>
+</html>
