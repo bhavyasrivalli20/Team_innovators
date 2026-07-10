@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saheli - Zero-Oil Nutrition & Smart Hostel AI Kitchen Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #FFF5F6;
+            --bg-card: #FFFFFF;
+            --pink-light: #FFE3E7;
+            --pink-medium: #F5A2B0;
+            --pink-brand: #D96276;
+            --pink-dark: #7A2835;
+            --text-dark: #2E1A1D;
+            --text-muted: #6B5558;
+            --success-green: #3D7A5A;
+            --no-oil-tag: #C94A29;
+            --shadow-md: 0 12px 30px rgba(217, 98, 118, 0.08);
+            --shadow-lg: 0 20px 45px rgba(122, 40, 53, 0.12);
+            --radius-lg: 24px;
+            --radius-md: 14px;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-dark);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Header Navbar */
+        header {
+            background-color: rgba(255, 245, 246, 0.9);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--pink-light);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--pink-brand);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-left: 30px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--pink-brand);
+        }
+
+        /* Hero Showcase banner */
+        .hero-banner {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            padding: 60px 0;
+        }
+
+        .hero-text {
+            flex: 1.2;
+        }
+
+        .hero-text span {
+            color: var(--pink-brand);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.6rem;
+            line-height: 1.15;
+            color: var(--pink-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+
+        .hero-image-box {
+            flex: 0.8;
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Section Global Settings */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 60px auto 40px auto;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pink-dark);
+            margin-bottom: 10px;
+        }
+
+        .inner-section {
+            padding: 40px 0;
+        }
+
+        /* AI Interactive Assistant Core Engine Layout */
+        .ai-assistant-wrapper {
+            background-color: var(--bg-card);
+            border: 1px solid var(--pink-light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+        }
+
+        .ai-input-panel h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--pink-dark);
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .input-group textarea {
+            width: 100%;
+            height: 110px;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--pink-light);
+            font-family: inherit;
+            font-size: 0.98rem;
+            resize: none;
+            transition: var(--transition);
+        }
+
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--pink-brand);
+            background-color: #FFFBFB;
+        }
+
+        .ai-btn {
+            background-color: var(--pink-brand);
+            color: #FFFFFF;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .ai-btn:hover {
+            background-color: var(--pink-dark);
+        }
+
+        /* Output Response Display Window */
+        .ai-output-panel {
+            background-color: #FFF9FA;
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--pink-medium);
+            padding: 30px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .output-placeholder {
+            margin: auto;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .output-placeholder span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .recipe-result-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--pink-dark);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--pink-light);
+            padding-bottom: 8px;
+        }
+
+        /* Nutrition Recipes Layout Cards */
+        .recipe-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .recipe-card {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--pink-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .recipe-card.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .recipe-image {
+            flex: 0.9;
+            min-height: 380px;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .recipe-content {
+            flex: 1.3;
+            padding: 50px;
+        }
+
+        .recipe-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--pink-dark);
+            margin-bottom: 5px;
+        }
+
+        .badges-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .macro-tagline {
+            font-weight: 700;
+            color: var(--success-green);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #EDF7F1;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .oil-free-tag {
+            font-weight: 700;
+            color: var(--no-oil-tag);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #FDF1EE;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .nutrition-benefits-box {
+            background-color: #F6FCF8;
+            border-left: 4px solid var(--success-green);
+            padding: 15px 20px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 20px 0;
+        }
+
+        .nutrition-benefits-box p {
+            font-size: 0.95rem;
+            color: #2D523B;
+        }
+
+        .steps-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .steps-box ol {
+            padding-left: 20px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .steps-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Institutionalized Footer */
+        footer {
+            background-color: var(--pink-dark);
+            color: #FFF5F6;
+            padding: 50px 24px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        /* Responsive Architecture Grid */
+        @media (max-width: 992px) {
+            .hero-banner, .ai-grid, .recipe-card, .recipe-card.reverse {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            .recipe-image { min-height: 250px; }
+            .recipe-content { padding: 30px; }
+            .ai-assistant-wrapper { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">RASOYI KA SAHELI</a>
+            <nav class="nav-links">
+                <a href="#ai-assistant">AI Smart Kitchen</a>
+                <a href="#nutrition-hub">5 Clean Recipes</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero-banner">
+            <div class="hero-text">
+                <span>Smart Cooking &amp; Zero Oil Nutrition</span>
+                <h1>Healthy Food Made Simple.</h1>
+                <p>Welcome to your ultimate clean-eating resource. Whether you are living in a tight hostel room or managing a busy routine at home, our 100% oil-free nutrition systems rely purely on wholesome veggies, pulses, and simple whole grains.</p>
+            </div>
+            <div class="hero-image-box">
+                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80" alt="Fresh Crisp Colorful Vegetables for Clean Cooking">
+            </div>
+        </section>
+
+        <section id="ai-assistant" class="inner-section">
+            <div class="section-header">
+                <h2>AI Hostel Room Ingredient Hack</h2>
+                <p>Enter whatever specific items are available in your dorm stack right now to instantly view a matching clean meal strategy.</p>
+            </div>
+
+            <div class="ai-assistant-wrapper">
+                <div class="ai-grid">
+                    <div class="ai-input-panel">
+                        <h3>What's in your room?</h3>
+                        <div class="input-group">
+                            <label for="ingredients-input">Enter available ingredients:</label>
+                            <textarea id="ingredients-input" placeholder="e.g., Bread, Onion, Tomatoes, Egg, Chana, Maggi..."></textarea>
+                        </div>
+                        <button class="ai-btn" onclick="generateHostelRecipe()">Analyze &amp; Cook Instantly</button>
+                    </div>
+
+                    <div class="ai-output-panel" id="ai-output-window">
+                        <div class="output-placeholder" id="placeholder-view">
+                            <span>🤖</span>
+                            <p>Ready to evaluate. Type your items on the left and hit the generate button.</p>
+                        </div>
+                        <div id="recipe-view" style="display: none;">
+                            <h3 class="recipe-result-title" id="res-title">Smart Dorm Recipe</h3>
+                            <div class="nutrition-benefits-box">
+                                <p><strong>Nutritional Value:</strong> <span id="res-macros"></span></p>
+                            </div>
+                            <div class="steps-box">
+                                <h4>Cooking Guide (100% Oil-Free & Minimal Utensils):</h4>
+                                <ol id="res-steps"></ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nutrition-hub" class="inner-section">
+            <div class="section-header">
+                <h2>5 Elite Oil-Free Nutrition Blueprints</h2>
+                <p>Perfect for hostellers and busy women looking to optimize digestion and energy without extra kitchen equipment.</p>
+            </div>
+
+            <div class="recipe-stack">
+                
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=600&q=80" alt="Microwave Oatmeal Bowl">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Power-Packed Microwave Oatmeal</h3>
+                        <div class="badges-wrapper">
+                            <span class="macro-tagline">Complex Carbs &amp; Fiber</span>
+                            <span class="oil-free-tag">❌ Zero Oil</span>
+                        </div>
+                        <p>A fast, hearty formula designed to provide steady energy release without causing heavy blood sugar crashes during long mornings.</p>
+                        <div class="nutrition-benefits-box">
+                            <p><strong>Health Benefits:</strong> High in beta-glucan fiber, which improves gut motility, stabilizes glucose levels, and provides steady energy for hours.</p>
+                        </div>
+                        <div class="steps-box">
+                            <h4>The Process:</h4>
+                            <ol>
+                                <li>Mix 1/2 cup of oats with 1 cup of water or low-fat milk in a large mug.</li>
+                                <li>Microwave on high for 90 to 120 seconds until thick.</li>
+                                <li>Stir in 1 tablespoon of raw peanut butter and a sliced banana for natural sweetness and magnesium.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipe-card reverse">
+                    <div class="recipe-image">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Fresh Sprouts Salad Bowl">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Steamed Sprouted Moong Salad</h3>
+                        <div class="badges-wrapper">
+                            <span class="macro-tagline">High Plant Protein</span>
+                            <span class="oil-free-tag">❌ Zero Oil</span>
+                        </div>
+                        <p>A fresh, crisp, no-cook option packed with vitamin C to naturally boost iron absorption.</p>
+                        <div class="nutrition-benefits-box">
+                            <p><strong>Health Benefits:</strong> Raw sprouts are highly bioavailable, which helps combat fatigue and improves red blood cell count.</p>
+                        </div>
+                        <div class="steps-box">
+                            <h4>The Process:</h4>
+                            <ol>
+                                <li>Rinse 1 cup of pre-sprouted moong beans with clean drinking water.</li>
+                                <li>Add finely chopped cucumber, raw onions, and tomatoes into a bowl.</li>
+                                <li>Toss together with lemon juice, a pinch of black salt, and roasted cumin powder. Skip all oil dressings completely.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" alt="Boiled Chana Mix">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Kettle-Boiled Tangy Black Chana</h3>
+                        <div class="badges-wrapper">
+                            <span class="macro-tagline">Iron &amp; Lean Protein</span>
+                            <span class="oil-free-tag">❌ Zero Oil</span>
+                        </div>
+                        <p>An excellent, savory evening snack designed specifically for hostellers using nothing but a standard electric kettle.</p>
+                        <div class="nutrition-benefits-box">
+                            <p><strong>Health Benefits:</strong> Loaded with iron and dietary fiber, which helps curb unhealthy snack cravings and supports long-term reproductive health.</p>
+                        </div>
+                        <div class="steps-box">
+                            <h4>The Process:</h4>
+                            <ol>
+                                <li>Boil pre-soaked black chana inside your electric kettle for 15-20 minutes until tender.</li>
+                                <li>Drain the water completely and transfer the hot chana to a clean bowl.</li>
+                                <li>Season with chaat masala, freshly squeezed lime, and raw chopped green chillies.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipe-card reverse">
+                    <div class="recipe-image">
+                        <img src="https://images.unsplash.com/photo-1608039829572-78524f79c4c7?auto=format&fit=crop&w=600&q=80" alt="Steamed Poha Bowl">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>No-Fry Steamed Vegetable Poha</h3>
+                        <div class="badges-wrapper">
+                            <span class="macro-tagline">Light &amp; Easily Digestible</span>
+                            <span class="oil-free-tag">❌ Zero Oil</span>
+                        </div>
+                        <p>A classic, light breakfast modified to preserve nutrients by steaming vegetables instead of frying them in oil.</p>
+                        <div class="nutrition-benefits-box">
+                            <p><strong>Health Benefits:</strong> Easily digestible carbohydrates that give you an instant energy boost without making you feel sluggish or heavy.</p>
+                        </div>
+                        <div class="steps-box">
+                            <h4>The Process:</h4>
+                            <ol>
+                                <li>Dry-toast 3 tablespoons of oats in a pan or microwave until crunchy (no oil needed).</li>
+                                <li>Whisk 1 cup of fresh, plain low-fat curd until smooth.</li>
+                                <li>Layer the toasted oats over the curd and finish with a handful of fresh pomegranate seeds or chopped almonds.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Project Saheli &mdash; Cultivating Sustainable Female Health Education &amp; Hostel Nutritional Security</p>
+            <p style="opacity: 0.4; font-size: 0.8rem; margin-top: 15px;">&copy; 2026 Saheli Smart Kitchen Hub. Optimized for low-impact hostel meal design.</p>
+        </div>
+    </footer>
+
+    <script>
+        function generateHostelRecipe() {
+            const rawInput = document.getElementById('ingredients-input').value.toLowerCase().trim();
+            const placeholder = document.getElementById('placeholder-view');
+            const recipeView = document.getElementById('recipe-view');
+            
+            const titleEl = document.getElementById('res-title');
+            const macroEl = document.getElementById('res-macros');
+            const stepsEl = document.getElementById('res-steps');
+
+            if (!rawInput) {
+                alert("Please type in at least one ingredient (like bread, egg, or chana) to see your custom recipe!");
+                return;
+            }
+
+            let title = "";
+            let macros = "";
+            let steps = [];
+
+            // Direct evaluation checks for flawless matching
+            if (rawInput.includes('bread')) {
+                title = "Clean High-Protein Peanut Butter Toast";
+                macros = "12g Protein, 0g Added Oil, Complex Carbs ~ 280 kcal";
+                steps = [
+                    "Take 2 slices of whole wheat bread.",
+                    "Spread 1 tablespoon of pure, sugar-free peanut butter evenly across them.",
+                    "Top with sliced banana or apple if available. No oil, no frying, pure sustained energy."
+                ];
+            } else if (rawInput.includes('egg')) {
+                title = "Oil-Free Microwave Steamed Omelette";
+                macros = "14g High Bioavailable Protein, 0g Oil ~ 160 kcal";
+                steps = [
+                    "Crack two fresh eggs directly into a clean, microwave-safe ceramic coffee mug.",
+                    "Whisk thoroughly with a fork. Add finely chopped onions, tomatoes, and green chillies.",
+                    "Microwave on high power for 60 to 90 seconds until fully cooked and fluffy. Slide out onto a plate and enjoy!"
+                ];
+            } else if (rawInput.includes('chana')) {
+                title = "Spiced Kettle-Boiled Chana Chaat";
+                macros = "Dense Plant Protein, High Iron & Fiber ~ 220 kcal";
+                steps = [
+                    "Drop your pre-soaked black or white chana into your electric kettle with clean water.",
+                    "Boil for 15 minutes until the chana is tender and soft.",
+                    "Drain completely, toss into a bowl, and mix with lemon juice, salt, and chaat masala for a delicious oil-free snack."
+                ];
+            } else if (rawInput.includes('maggi') || rawInput.includes('noodles')) {
+                title = "Nutrient-Boosted Veggie Maggi Hack";
+                macros = "Enhanced Fiber, 0g Added Cooking Oils ~ 320 kcal";
+                steps = [
+                    "Boil water in your electric kettle and add your noodle block along with the spice mix.",
+                    "To skip the oil while boosting nutrition, drop in chopped onions, tomatoes, and canned sweet corn to cook in the broth.",
+                    "Let it simmer until the water is absorbed for a high-fiber version of your favorite snack."
+                ];
+            } else {
+                // Default fallback if a different ingredient is typed
+                title = "The Quick Saheli High-Fiber Mixed Fruit & Nut Bowl";
+                macros = "Rich in Antioxidants, Healthy Fats, Zero Cook Oil ~ 190 kcal";
+                steps = [
+                    "Chop up any available fresh fruits or vegetables into a clean bowl.",
+                    "Add a small handful of crushed roasted almonds or plain peanuts for healthy, clean fats.",
+                    "Squeeze fresh lime juice over the top and season with black pepper."
+                ];
+            }
+
+            // Unhide output window display
+            placeholder.style.display = "none";
+            recipeView.style.display = "block";
+            
+            titleEl.innerText = title;
+            macroEl.innerText = macros;
+            
+            // Clear past inner elements safely
+            stepsEl.innerHTML = "";
+            steps.forEach(stepText => {
+                let li = document.createElement('li');
+                li.innerText = stepText;
+                stepsEl.appendChild
+                });
+        }
+    </script>
+</body>
+</html
