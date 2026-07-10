@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Philosophy & Practice of Classical Patanjali Yoga</title>
+    <!-- Premium Google Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #FFF9F9;
+            --bg-card: #FFFFFF;
+            --pink-light: #FFEAEA;
+            --pink-medium: #F3C5C5;
+            --pink-dark: #C37B7B;
+            --text-primary: #2C2525;
+            --text-secondary: #5C5050;
+            --accent-gold: #C69B7B;
+            --shadow-sm: 0 4px 12px rgba(195, 123, 123, 0.08);
+            --shadow-lg: 0 16px 40px rgba(195, 123, 123, 0.12);
+            --radius-lg: 24px;
+            --radius-md: 12px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: rgba(255, 249, 249, 0.9);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--pink-light);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--pink-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-left: 35px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--pink-dark);
+        }
+
+        /* Hero Context */
+        .hero-section {
+            padding: 80px 0;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1.2;
+        }
+
+        .hero-text span {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .hero-img-box {
+            flex: 0.8;
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Global Section Layouts */
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.6rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .inner-section {
+            padding: 100px 0;
+        }
+
+        /* Patanjali Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .book-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--pink-light);
+            border-radius: var(--radius-md);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--pink-medium);
+        }
+
+        .book-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--pink-light);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .book-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+        }
+
+        .book-card h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 8 Limbs Section */
+        .limbs-wrapper {
+            background-color: var(--pink-light);
+            padding: 80px 40px;
+            border-radius: var(--radius-lg);
+        }
+
+        .limbs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .limb-item {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .limb-item h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--pink-dark);
+            margin-bottom: 5px;
+        }
+
+        .limb-item span {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Dynamic Asana Cards Stack */
+        .asana-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .asana-block {
+            display: flex;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--pink-light);
+        }
+
+        .asana-block.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .asana-media {
+            flex: 1;
+            min-height: 400px;
+        }
+
+        .asana-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .asana-content {
+            flex: 1.2;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .asana-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        .asana-translation {
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .asana-content ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .asana-content li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        /* Benefits Panel */
+        .benefits-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background-color: #FFF0F0;
+            padding: 60px;
+            border-radius: var(--radius-lg);
+            align-items: center;
+        }
+
+        .benefits-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .benefits-checklist {
+            list-style: none;
+        }
+
+        .benefits-checklist li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .benefits-checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--pink-dark);
+            font-weight: 700;
+        }
+
+        /* Precautions Segment */
+        .precaution-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--pink-light);
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .precaution-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .precaution-column h3 {
+            font-size: 1.4rem;
+            color: var(--pink-dark);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--pink-light);
+            padding-bottom: 8px;
+        }
+
+        .precaution-column p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background-color: #261F1F;
+            color: #F7E6E6;
+            padding: 60px 0;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Layout Updates */
+        @media (max-width: 992px) {
+            .hero-section, .asana-block, .asana-block.reverse, .benefits-banner {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            .asana-media { min-height: 300px; }
+            .asana-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="brand">Saheli Yoga</a>
+            <nav class="nav-links">
+                <a href="#books">The 4 Books</a>
+                <a href="#limbs">The 8 Limbs</a>
+                <a href="#asanas">Asanas</a>
+                <a href="#benefits">Systemic Benefits</a>
+                <a href="#precautions">Women's Precautions</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Concept Block -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <span>The Definitive Classical System</span>
+                <h1>Yogash Chitta Vritti Nirodhah</h1>
+                <p>According to Sage Patanjali, Yoga is not merely physical performance—it is the intentional cessation of the fluctuating, turbulent modifications of human consciousness.</p>
+            </div>
+            <div class="hero-img-box">
+                <img src="https://png.pngtree.com/thumb_back/fw800/background/20250323/pngtree-woman-meditating-practicing-yoga-watching-sun-silhouette-calm-breathing-summer-light-photo-photo-image_72117020.webp" alt="Classical Meditative Breath Work">
+            </div>
+        </section>
+
+        <!-- The Four Books (Padas) Section -->
+        <section id="books" class="inner-section">
+            <div class="section-header">
+                <h2>The Four Books of the Yoga Sutras</h2>
+                <p>The complete architectural blueprint of human realization as systematically outlined in the original Patañjalayogaśāstra text.</p>
+            </div>
+            
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-num">01</div>
+                    <h3>Samadhi Pada</h3>
+                    <h4>Book of Contemplation</h4>
+                    <p>Defines the ultimate nature, goals, and core mechanics of pure meditative absorption and mental liberation.</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-num">02</div>
+                    <h3>Sadhana Pada</h3>
+                    <h4>Book of Practice</h4>
+                    <p>Outlines the practical discipline, including Kriya Yoga and the initial limbs of the eightfold execution path.</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-num">03</div>
+                    <h3>Vibhuti Pada</h3>
+                    <h4>Book of Accomplishments</h4>
+                    <p>Examines advanced internal states of focus and the psychological capabilities arising from integrated concentration.</p>
+                </div>
+                <div class="book-card">
+                    <div class="book-num">04</div>
+                    <h3>Kaivalya Pada</h3>
+                    <h4>Book of Absolute Freedom</h4>
+                    <p>Explores the ultimate state of liberation, philosophical dualism, and complete emancipation of consciousness.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The 8 Limbs Section -->
+        <section id="limbs" class="inner-section">
+            <div class="section-header">
+                <h2>The Eight Limbs (Ashtanga)</h2>
+                <p>The step-by-step structural path formulated by Patanjali to refine human behavior, physical posture, internal energy, and cosmic awareness.</p>
+            </div>
+
+            <div class="limbs-wrapper">
+                <div class="limbs-grid">
+                    <div class="limb-item"><h4>Yama</h4><span>01. Social Restraints</span><p>Ethics of non-violence, truth, and non-stealing.</p></div>
+                    <div class="limb-item"><h4>Niyama</h4><span>02. Inner Codes</span><p>Purity, containment, contentment, and deep study.</p></div>
+                    <div class="limb-item"><h4>Asana</h4><span>03. Postures</span><p>Stable, balanced, effortless physical seating patterns.</p></div>
+                    <div class="limb-item"><h4>Pranayama</h4><span>04. Breath Extension</span><p>Regulation and suspension of vital kinetic breathing lines.</p></div>
+                    <div class="limb-item"><h4>Pratyahara</h4><span>05. Sensory Withdrawal</span><p>Inward retraction of human senses away from objects.</p></div>
+                    <div class="limb-item"><h4>Dharana</h4><span>06. Concentration</span><p>Binding human focus tightly to a singular physical target.</p></div>
+                    <div class="limb-item"><h4>Dhyana</h4><span>07. True Meditation</span><p>Unbroken, effortless stream of unified cognition.</p></div>
+                    <div class="limb-item"><h4>Samadhi</h4><span>08. Pure Integration</span><p>Complete cosmic absorption where object and self merge.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehensive Asana Breakdown Stack -->
+        <section id="asanas" class="inner-section">
+            <div class="section-header">
+                <h2>The Physical Postures (Asanas)</h2>
+                <p>Rooted in stable structural alignment to unlock long-form meditation capability without somatic stress.</p>
+            </div>
+
+            <div class="asana-stack">
+                <!-- Asana 1 -->
+                <div class="asana-block">
+                    <div class="asana-media">
+                        <img src="https://img.magnific.com/free-photo/young-woman-doing-butterfly-exercise_1163-5067.jpg?semt=ais_hybrid&w=740&q=80" alt="Muktasana Practice Form">
+                    </div>
+                    <div class="asana-content">
+                        <h3>Muktasana</h3>
+                        <div class="asana-translation">The Posture of Liberation</div>
+                        <p>An elite, highly stable seated configuration referenced extensively across classical texts for executing intense Pranayama and calming autonomic nervous system triggers.</p>
+                        <ul>
+                            <li>Draw the left heel directly back against the pelvic floor line.</li>
+                            <li>Tuck the right foot securely into the opposing ankle fold line without forcing.</li>
+                            <li>Maintain a completely vertical, unforced spinal stack column.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Asana 2 -->
+                <div class="asana-block reverse">
+                    <div class="asana-media">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/074/060/196/small_2x/a-young-girl-sits-cross-legged-on-a-yellow-yoga-mat-in-a-serene-indoor-environment-she-smiles-softly-wearing-a-light-pink-shirt-and-pink-shorts-engaging-in-her-yoga-practice-photo.jpg" alt="Vrikshasana Balance Purity">
+                    </div>
+                    <div class="asana-content">
+                        <h3>Vrikshasana</h3>
+                        <div class="asana-translation">The Tree Balancing Posture</div>
+                        <p>A classic structural balancing archetype that requires complete mental clarity and neurological synchronization to stabilize skeletal mechanics.</p>
+                        <ul>
+                            <li>Anchor all weight uniformly into one structural foot frame.</li>
+                            <li>Lift the opposite sole high up against the inner medial thigh surface.</li>
+                            <li>Extend hands upwards to vertical alignment or close them at heart center.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Holistic Benefits Overview -->
+        <section id="benefits" class="inner-section">
+            <div class="benefits-banner">
+                <div>
+                    <h2>The Structural & Neurological System Benefits</h2>
+                    <p>Classical regular practice works deep within biological layers to reorganize default operational baselines.</p>
+                </div>
+                <div>
+                    <ul class="benefits-checklist">
+                        <li>**Autonomic Regulation:** Down-regulates long-term sympathetic fight-or-flight triggers.</li>
+                        <li>**Endocrine Balancing:** Lowers systemic baseline cortisol levels under neurological stress.</li>
+                        <li>**Spinal Compression Relief:** Reinforces supportive muscular alignment columns.</li>
+                        <li>**Cognitive Restraint:** Cultivates enhanced focal capacity and dynamic attention control.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Precise Biological Women's Precautions Section -->
+        <section id="precautions" class="inner-section">
+            <div class="precaution-container">
+                <div class="section-header" style="margin-bottom: 20px; text-align: left; max-width: 100%;">
+                    <h2>Critical Practice Modifications & Precautions for Women</h2>
+                    <p>Honoring female biological cycles and structural biomechanics safely across distinct physiological phases.</p>
+                </div>
+
+                <div class="precaution-row">
+                    <div class="precaution-column">
+                        <h3>The Menstrual Phase</h3>
+                        <p>**Omit Inversions:** Poses like Sirsasana or Sarvangasana disrupt natural downward fluid mechanics and vascular pressure cycles.</p>
+                        <p>**De-escalate Core Strain:** Avoid intense deep abdominal pressure or restrictive breath retention blocks during active cycle points.</p>
+                    </div>
+                    <div class="precaution-column">
+                        <h3>The Prenatal Stages</h3>
+                        <p>**Avoid Abdominal Compression:** Eliminate prone postures (lying directly flat on stomach layouts) and deep closed twists.</p>
+                        <p>**Manage Relaxin Hormone Levels:** Ligaments soften naturally during pregnancy; do not push joints to their absolute maximum extension limits to prevent long-term joint instability.</p>
+                    </div>
+                    <div class="precaution-column">
+                        <h3>The Postpartum Window</h3>
+                        <p>**Prioritize Slow Pelvic Stabilization:** Focus on gentle structural rebuilds before jumping back into intense weight-bearing hip Openers.</p>
+                        <p>**Diastasis Recti Awareness:** Check for abdominal separation before introducing intense front-body stretching extensions like Wheel Pose.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer>
+        <div class="container">
+            <p>“Sthira Sukham Asanam.” &mdash; Yoga Sutras of Sage Patanjali, II.46</p>
+            <p style="opacity: 0.5; margin-top: 15px; font-size: 0.8rem;">&copy; 2026 Classical Yoga Repository. For educational study and professional architectural layout reference only.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
