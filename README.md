@@ -4,7 +4,7 @@ SAHELI – Women’s Wellness Ecosystem
 The Idea
 Saheli is a comprehensive women-centric wellness platform that unifies menstrual wellness, medication management, nutrition, mental well-being, fitness, and creative engagement into a single ecosystem. The project addresses the problem of fragmented healthcare applications by providing personalized wellness support through logic-based recommendations and Python-powered medication tracking.
 Important Links
-• Live Deployment Link: https://github.com/bhavyasrivalli20/Team_innovators
+• Live Deployment Link:https://bhavyasrivalli20.github.io/Team_innovators/
 • Demo Video Link: https://drive.google.com/file/d/1Lfki61GOaLZLqoEeFlvxWdW0aW9xdvVa/view?usp=drivesdk
 • GitHub Repository: https://github.com/bhavyasrivalli20/Team_innovators.git
 Features
